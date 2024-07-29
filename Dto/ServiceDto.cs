@@ -4,13 +4,15 @@
     {
         public int Id { get; set; }
 
+        public string Name { get; set; }
+
         public int No { get; set; }
 
         public int Category { get; set; }
 
         public string FoamName { get; set; }
 
-        public decimal Weight { get;}
+        public decimal Weight { get; set; }
 
         public string Sticker1 { get; set; }
 

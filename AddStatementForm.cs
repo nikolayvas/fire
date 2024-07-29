@@ -4,10 +4,13 @@ using System.Windows.Forms;
 
 namespace FireWork
 {
-    public partial class AddForm : Form
+    public partial class AddStatementForm : Form
     {
-        public AddForm()
+        private int CompanyId {  get; set; }
+
+        public AddStatementForm(int companyId)
         {
+            CompanyId = companyId;
             InitializeComponent();
         }
 
@@ -15,27 +18,22 @@ namespace FireWork
         {
             try
             {
-                var dto = new CompanyDto()
+                var dto = new StatementDto()
                 {
-                    Name = txtName.Text,
+                    No = int.Parse(textBox1.Text),
                 };
 
-                DBAccess.AddNewRow(dto);
+                DBAccess.AddNewStatement(CompanyId, dto);
 
-                this.DialogResult = DialogResult.OK;
+                DialogResult = DialogResult.OK;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString(),
                     "Error Information",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Exclamation);
             }
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            this.DialogResult = DialogResult.Cancel;
         }
     }
 }

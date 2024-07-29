@@ -35,6 +35,7 @@ namespace FireWork
             this.button1 = new System.Windows.Forms.Button();
             this.cId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.address = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cDoc = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tableLayoutPanel1.SuspendLayout();
@@ -65,6 +66,7 @@ namespace FireWork
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.cId,
             this.cName,
+            this.address,
             this.Date,
             this.cDoc});
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -106,6 +108,15 @@ namespace FireWork
             this.cName.ReadOnly = true;
             this.cName.Width = 125;
             // 
+            // address
+            // 
+            this.address.DataPropertyName = "Address";
+            this.address.HeaderText = "Адрес";
+            this.address.MinimumWidth = 6;
+            this.address.Name = "address";
+            this.address.ReadOnly = true;
+            this.address.Width = 125;
+            // 
             // Date
             // 
             this.Date.DataPropertyName = "Date";
@@ -121,7 +132,7 @@ namespace FireWork
             this.cDoc.MinimumWidth = 6;
             this.cDoc.Name = "cDoc";
             this.cDoc.ReadOnly = true;
-            this.cDoc.Text = "Редактирай";
+            this.cDoc.Text = "->";
             this.cDoc.UseColumnTextForButtonValue = true;
             this.cDoc.Width = 125;
             // 
@@ -144,6 +155,7 @@ namespace FireWork
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridViewTextBoxColumn cId;
         private System.Windows.Forms.DataGridViewTextBoxColumn cName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn address;
         private System.Windows.Forms.DataGridViewTextBoxColumn Date;
         private System.Windows.Forms.DataGridViewButtonColumn cDoc;
     }

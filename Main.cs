@@ -1,4 +1,4 @@
-using FireWork.Dto;
+﻿using FireWork.Dto;
 using Library.Forms;
 using System;
 using System.Windows.Forms;
@@ -12,7 +12,7 @@ namespace FireWork
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(ErrorHandler);
 
             InitializeComponent();
-            this.Text = "Zanevi System";
+            this.Text = "Противопожарно обслужване";
 
             LoadData();
         }
@@ -28,7 +28,7 @@ namespace FireWork
 
         private void button1_Click(object sender, EventArgs e)
         {
-            AddForm addForm = new AddForm();
+            AddCompanyForm addForm = new AddCompanyForm();
             addForm.ShowDialog();
 
             if (addForm.DialogResult == DialogResult.OK)
@@ -46,18 +46,17 @@ namespace FireWork
             {
                 var selectedRow = senderGrid.Rows[e.RowIndex];
 
-                CompanyForm companyForm = new CompanyForm();
-                companyForm.CompanyId = int.Parse(selectedRow.Cells[0].Value.ToString());
+                CompanyForm companyForm = new CompanyForm(int.Parse(selectedRow.Cells[0].Value.ToString()), selectedRow.Cells[1].Value.ToString());
                 companyForm.ShowDialog();
             }
         }
 
         private void LoadData()
         {
-            var data = DBAccess.LoadData();
+            var data = DBAccess.LoadCompanies();
 
             dataGridView1.AutoGenerateColumns = false;
-            dataGridView1.DataSource = new SortableBindingList<CompanyDto>(data); ;
+            dataGridView1.DataSource = new SortableBindingList<CompanyDto>(data);
         }
     }
 }
