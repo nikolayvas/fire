@@ -18,7 +18,7 @@ namespace FireWork
             LoadProtocolNo();
         }
 
-        private void LoadProtocolNo()
+        public void LoadProtocolNo()
         {
             this.txtProtocolNo.Text = DBAccess.LastStatementNo().ToString();
         }

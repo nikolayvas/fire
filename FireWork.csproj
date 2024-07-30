@@ -19,6 +19,9 @@
   
 
   <ItemGroup>
+    <None Update="diary.dot">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="template.dot">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

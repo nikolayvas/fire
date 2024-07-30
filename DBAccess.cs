@@ -303,15 +303,15 @@ namespace FireWork
 
         #region Report
 
-        public static List<ReportDto> GetReportData(int no)
+        public static List<DiaryDto> GetReportData(int no)
         {
             using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
             {
                 connection.Open();
 
-                var data = new List<ReportDto>();
+                var data = new List<DiaryDto>();
 
-                using (var command = new SQLiteCommand($"select datetime(Date,'unixepoch'), weight, name, STICKER_1, STICKER_2, STICKER_3, FOAM_NAME from SERVICE ser inner join STATEMENT st on ser.STATEMENT_ID = st.id where st.no > {no}", connection))
+                using (var command = new SQLiteCommand($"select datetime(Date,'unixepoch'), weight, name, STICKER_1, STICKER_2, STICKER_3, FOAM_NAME from SERVICE ser inner join STATEMENT st on ser.STATEMENT_ID = st.id where st.no > {no} order by st.no", connection))
                 {
                     using (var reader = command.ExecuteReader())
                     {
@@ -320,16 +320,16 @@ namespace FireWork
                             while (reader.Read())
                             {
                                 var date = ParseDate(reader.GetString(0));
-                                var unitWeightType = reader.GetInt32(1) > 25 ? "Возим    пожарог." : "Носим    пожарог.";
+                                var unitWeightType = reader.GetDecimal(1) > 25 ? "Возим    пожарог." : "Носим    пожарог.";
                                 var unitModel = GetStringOrEmpty(reader, 2);
                                 var sticker1 = GetStringOrEmpty(reader, 3);
                                 var sticker2 = GetStringOrEmpty(reader, 4);
                                 var sticker3 = GetStringOrEmpty(reader, 5);
                                 var foamName = GetStringOrEmpty(reader, 6);
 
-                                if(string.IsNullOrEmpty(sticker1)) 
+                                if(!string.IsNullOrEmpty(sticker1)) 
                                 {
-                                    data.Add(new ReportDto()
+                                    data.Add(new DiaryDto()
                                     {
                                         Date = date.ToString("dd.MM.yyyy"),
                                         UnitWeightType = unitWeightType,
@@ -341,9 +341,9 @@ namespace FireWork
                                     });
                                 }
 
-                                if (string.IsNullOrEmpty(sticker2))
+                                if (!string.IsNullOrEmpty(sticker2))
                                 {
-                                    data.Add(new ReportDto()
+                                    data.Add(new DiaryDto()
                                     {
                                         Date = date.ToString("dd.MM.yyyy"),
                                         UnitWeightType = unitWeightType,
@@ -355,9 +355,9 @@ namespace FireWork
                                     });
                                 }
 
-                                if (string.IsNullOrEmpty(sticker3))
+                                if (!string.IsNullOrEmpty(sticker3))
                                 {
-                                    data.Add(new ReportDto()
+                                    data.Add(new DiaryDto()
                                     {
                                         Date = date.ToString("dd.MM.yyyy"),
                                         UnitWeightType = unitWeightType,

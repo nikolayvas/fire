@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace FireWork
 {
-    public static class StatementDocGenerator
+    public static class DocsGenerator
     {
         public static void GenerateStatemet(CompanyDto company, StatementDto statement, ServiceUIDto[] services, string docPath)
         {
@@ -41,6 +41,70 @@ namespace FireWork
                 rowsStartIndex++;
             }
 
+            wDoc.Activate();
+        }
+
+        public static void GenerateDiary(DiaryDto[] rows, string docPath)
+        {
+            Application wApp = new Application
+            {
+                Visible = false
+            };
+            Documents wDocs = wApp.Documents;
+            Document wDoc = wDocs.Open(docPath, ReadOnly: true, Visible: true);
+
+            var table = wDoc.Tables[1];
+
+            var rowsStartIndex = 3;
+            var rowsCounter = 1;
+
+            foreach (var service in rows)
+            {
+                table.Rows.Add();
+                var rowRange = table.Rows[rowsStartIndex].Range;
+                rowRange.ParagraphFormat.LineSpacingRule = WdLineSpacing.wdLineSpaceMultiple;
+                rowRange.ParagraphFormat.LineSpacing = 13.5F;
+
+                table.Rows[rowsStartIndex].Range.Font.Size = 11;
+
+                table.Rows[rowsStartIndex].Cells[1].Range.Text = (rowsCounter).ToString();
+
+                table.Rows[rowsStartIndex].Cells[2].Range.Text = service.Date;
+
+                table.Rows[rowsStartIndex].Cells[3].Range.Text = service.UnitModel;
+
+                table.Rows[rowsStartIndex].Cells[4].Range.Text = service.UnitModel;
+
+                table.Rows[rowsStartIndex].Cells[5].Range.Text = "";
+
+                table.Rows[rowsStartIndex].Cells[6].Range.Text = service.ServiceType;
+
+                table.Rows[rowsStartIndex].Cells[7].Range.Text = service.Sticker;
+
+                table.Rows[rowsStartIndex].Cells[8].Range.Text = service.TradeNameFoam;
+
+                table.Rows[rowsStartIndex].Cells[9].Range.Text = service.DataNext;
+
+                if(rowsCounter % 20 == 0)
+                {
+                    rowsStartIndex++;
+                    table.Rows.Add();
+
+                    table.Rows[1].Range.Copy();
+                    table.Rows[rowsStartIndex].Range.Paste();
+
+                    table.Rows[2].Range.Copy();
+
+                    table.Rows.Add();
+                    rowsStartIndex++;
+                    table.Rows[rowsStartIndex].Range.Paste();
+                }
+
+                rowsCounter++;
+                rowsStartIndex++;
+            }
+
+            wApp.Visible = true;
             wDoc.Activate();
         }
 

@@ -36,6 +36,7 @@ namespace FireWork
             if (addForm.DialogResult == DialogResult.OK)
             {
                 LoadStatementsData();
+                MainForm.LoadProtocolNo();
             }
         }
 
@@ -128,7 +129,7 @@ namespace FireWork
             var statement = DBAccess.LoadStatement(SelectedStatementId);
             var services = DBAccess.LoadServices(SelectedStatementId);
 
-            StatementDocGenerator.GenerateStatemet(company, statement, ConvertServices(services), $"{Application.StartupPath}\\template.dot");
+            DocsGenerator.GenerateStatemet(company, statement, ConvertServices(services), $"{Application.StartupPath}\\template.dot");
         }
 
         private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)

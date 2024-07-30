@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FireWork
@@ -15,6 +9,15 @@ namespace FireWork
         public Report2Form()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var protocolNo = int.Parse(textBox1.Text);
+            var diaryRows = DBAccess.GetReportData(protocolNo);
+            var doubleArray = diaryRows.Concat(diaryRows);
+
+            DocsGenerator.GenerateDiary(doubleArray.ToArray(), $"{Application.StartupPath}\\diary.dot");
         }
     }
 }

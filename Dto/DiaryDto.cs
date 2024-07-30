@@ -1,6 +1,6 @@
 ﻿namespace FireWork.Dto
 {
-    public class ReportDto
+    public class DiaryDto
     {
         public string Date { get; set; }
 
