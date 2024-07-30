@@ -6,12 +6,48 @@ namespace FireWork
 {
     public partial class AddServiceForm : Form
     {
+        private ServiceDto service;
+
         private int StatementId { get; set; }
+
+        private bool AddNew = true;
 
         public AddServiceForm(int statementId)
         {
             InitializeComponent();
             StatementId = statementId;
+        }
+
+        public AddServiceForm(ServiceDto service)
+        {
+            this.service = service;
+            InitializeComponent();
+
+            this.txtName.Text = service.Name;
+            this.txtTradeName.Text = service.FoamName;
+            this.txtWeight.Text = service.Weight.ToString();
+            this.comboBox1.Text = service.Category == 1 ? "ВОДА" : (service.Category == 2 ? "ПРАХ" : "CO2");
+
+            if(!string.IsNullOrEmpty(service.Sticker1))
+            {
+                this.chkStick1.Checked = true;
+                this.txtStick1.Text = service.Sticker1;
+            }
+
+            if (!string.IsNullOrEmpty(service.Sticker2))
+            {
+                this.chkStick2.Checked = true;
+                this.txtStick2.Text = service.Sticker2;
+            }
+
+            if (!string.IsNullOrEmpty(service.Sticker3))
+            {
+                this.chkStick3.Checked = true;
+                this.txtStick3.Text = service.Sticker3;
+            }
+
+            this.button1.Text = "Запази";
+            AddNew = false;
         }
 
         private void chkStick1_CheckedChanged(object sender, EventArgs e)
@@ -44,7 +80,15 @@ namespace FireWork
                     Sticker3 = txtStick3.Visible ? txtStick3.Text : null,
                 };  
 
-                DBAccess.AddNewService(StatementId, dto);
+                if(AddNew)
+                {
+                    DBAccess.AddNewService(StatementId, dto);
+                }
+                else
+                {
+                    dto.Id = service.Id;
+                    DBAccess.UpdateService(dto);
+                }
 
                 DialogResult = DialogResult.OK;
             }

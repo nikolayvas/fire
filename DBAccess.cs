@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using FireWork.Dto;
@@ -115,7 +116,7 @@ namespace FireWork
         #endregion
 
         #region Statement
-        public static void AddNewStatement(int companyId, StatementDto dto)
+        public static long AddNewStatement(int companyId, StatementDto dto)
         {
             using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
             {
@@ -129,6 +130,10 @@ namespace FireWork
                     cmd.CommandType = CommandType.Text;
                     cmd.ExecuteNonQuery();
                 }
+
+                var rowID = connection.LastInsertRowId;
+
+                return rowID;
             }
         }
 
@@ -221,10 +226,26 @@ namespace FireWork
             }
         }
 
+        public static void TwinStatement(int companyId, int statementId, int no)
+        {
+            var statement = LoadStatement(statementId);
+            var services = LoadServices(statementId);
+
+            var newStatementId = AddNewStatement(companyId, new StatementDto()
+            {
+                No = no,
+            });
+
+            foreach (var item in services)
+            {
+                AddNewService(newStatementId, item);
+            }
+        }
+
         #endregion
 
         #region Service
-        public static void AddNewService(int statementId, ServiceDto dto)
+        public static void AddNewService(long statementId, ServiceDto dto)
         {
             using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
             {
@@ -255,7 +276,7 @@ namespace FireWork
 
                 var data = new List<ServiceDto>();
 
-                using (var command = new SQLiteCommand($"SELECT Id, Name, Category, Foam_name, Weight, Sticker_1, Sticker_2, Sticker_3 FROM SERVICE Where Statement_ID = {statementId}", connection))
+                using (var command = new SQLiteCommand($"SELECT Id, Name, Category, Foam_name, Weight, Sticker_1, Sticker_2, Sticker_3 FROM SERVICE Where Statement_ID = {statementId} order by id" , connection))
                 {
                     using (var reader = command.ExecuteReader())
                     {
@@ -293,6 +314,65 @@ namespace FireWork
                 using (var cmd = new SQLiteCommand(sql, connection))
                 {
                     cmd.Parameters.Add("@param0", DbType.Int64).Value = serviceId;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public static ServiceDto LoadService(int serviceId)
+        {
+            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
+            {
+                connection.Open();
+
+                var data = new List<ServiceDto>();
+
+                using (var command = new SQLiteCommand($"SELECT Id, Name, Category, Foam_name, Weight, Sticker_1, Sticker_2, Sticker_3 FROM SERVICE Where id = {serviceId}", connection))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                data.Add(new ServiceDto()
+                                {
+                                    Id = reader.GetInt32(0),
+                                    Name = GetStringOrEmpty(reader, 1),
+                                    Category = reader.GetInt32(2),
+                                    FoamName = GetStringOrEmpty(reader, 3),
+                                    Weight = reader.GetDecimal(4),
+                                    Sticker1 = GetStringOrEmpty(reader, 5),
+                                    Sticker2 = GetStringOrEmpty(reader, 6),
+                                    Sticker3 = GetStringOrEmpty(reader, 7)
+                                });
+                            }
+                        }
+                    }
+                }
+
+                return data.FirstOrDefault();
+            }
+        }
+
+        public static void UpdateService(ServiceDto dto)
+        {
+            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
+            {
+                connection.Open();
+                string sql = "UPDATE SERVICE SET Name = @param0, Category = @param1, Foam_Name = @param2, Weight = @param3, Sticker_1 = @param4, Sticker_2 = @param5, Sticker_3 = @param6  WHERE id = @param7";
+
+                using (var cmd = new SQLiteCommand(sql, connection))
+                {
+                    cmd.Parameters.Add("@param0", DbType.String, 50).Value = dto.Name;
+                    cmd.Parameters.Add("@param1", DbType.Int64).Value = dto.Category;
+                    cmd.Parameters.Add("@param2", DbType.String, 50).Value = dto.FoamName;
+                    cmd.Parameters.Add("@param3", DbType.Decimal).Value = dto.Weight;
+                    cmd.Parameters.Add("@param4", DbType.String, 50).Value = dto.Sticker1;
+                    cmd.Parameters.Add("@param5", DbType.String, 50).Value = dto.Sticker2;
+                    cmd.Parameters.Add("@param6", DbType.String, 50).Value = dto.Sticker3;
+                    cmd.Parameters.Add("@param7", DbType.Int64).Value = dto.Id;
                     cmd.CommandType = CommandType.Text;
                     cmd.ExecuteNonQuery();
                 }

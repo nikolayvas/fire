@@ -8,10 +8,12 @@ namespace FireWork
     {
         private int CompanyId {  get; set; }
 
-        public AddStatementForm(int companyId)
+        public AddStatementForm(int companyId, int statementNo)
         {
             CompanyId = companyId;
             InitializeComponent();
+
+            textBox1.Text = statementNo.ToString();
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -13,11 +13,21 @@ namespace FireWork
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var protocolNo = int.Parse(textBox1.Text);
-            var diaryRows = DBAccess.GetReportData(protocolNo);
-            var doubleArray = diaryRows.Concat(diaryRows);
+            try
+            {
+                var protocolNo = int.Parse(textBox1.Text);
+                var diaryRows = DBAccess.GetReportData(protocolNo);
+                var doubleArray = diaryRows.Concat(diaryRows);
 
-            DocsGenerator.GenerateDiary(doubleArray.ToArray(), $"{Application.StartupPath}\\diary.dot");
+                DocsGenerator.GenerateDiary(doubleArray.ToArray(), $"{Application.StartupPath}\\diary.dot");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString(),
+                   "Error Information",
+                   MessageBoxButtons.OK,
+                   MessageBoxIcon.Exclamation);
+            }
         }
     }
 }
