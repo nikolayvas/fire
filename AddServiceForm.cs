@@ -35,7 +35,6 @@ namespace FireWork
             {
                 var dto = new ServiceDto()
                 {
-                    No = int.Parse(txtNo.Text),
                     Name = txtName.Text,
                     Category = comboBox1.Text == "CO2" ? 5 : (comboBox1.Text == "ВОДА" ? 1 : 2),
                     FoamName = txtTradeName.Text,

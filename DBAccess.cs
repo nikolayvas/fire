@@ -1,5 +1,4 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
@@ -195,6 +194,33 @@ namespace FireWork
             }
         }
 
+        public static int LastStatementNo()
+        {
+            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
+            {
+                connection.Open();
+
+                var data = new List<StatementDto>();
+
+                using (var command = new SQLiteCommand($"SELECT MAX(No) FROM STATEMENT", connection))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                return reader.GetInt32(0);
+
+                            }
+                        }
+                    }
+                }
+
+                return 0;
+            }
+        }
+
         #endregion
 
         #region Service
@@ -203,11 +229,10 @@ namespace FireWork
             using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
             {
                 connection.Open();
-                string sql = "INSERT INTO SERVICE(No, Name, Category, Foam_Name, Sticker_1, Sticker_2, Sticker_3, Weight, Statement_id) VALUES(@param0, @param1, @param2, @param3, @param4, @param5, @param6, @param7, @param8)";
+                string sql = "INSERT INTO SERVICE(Name, Category, Foam_Name, Sticker_1, Sticker_2, Sticker_3, Weight, Statement_id) VALUES(@param1, @param2, @param3, @param4, @param5, @param6, @param7, @param8)";
 
                 using (var cmd = new SQLiteCommand(sql, connection))
                 {
-                    cmd.Parameters.Add("@param0", DbType.Int64).Value = dto.No;
                     cmd.Parameters.Add("@param1", DbType.String, 50).Value = dto.Name;
                     cmd.Parameters.Add("@param2", DbType.Int64).Value = dto.Category;
                     cmd.Parameters.Add("@param3", DbType.String, 50).Value = dto.FoamName;
@@ -230,7 +255,7 @@ namespace FireWork
 
                 var data = new List<ServiceDto>();
 
-                using (var command = new SQLiteCommand($"SELECT Id, No, Name, Category, Foam_name, Weight, Sticker_1, Sticker_2, Sticker_3 FROM SERVICE Where Statement_ID = {statementId} ORDER BY No", connection))
+                using (var command = new SQLiteCommand($"SELECT Id, Name, Category, Foam_name, Weight, Sticker_1, Sticker_2, Sticker_3 FROM SERVICE Where Statement_ID = {statementId}", connection))
                 {
                     using (var reader = command.ExecuteReader())
                     {
@@ -241,14 +266,13 @@ namespace FireWork
                                 data.Add(new ServiceDto()
                                 {
                                     Id = reader.GetInt32(0),
-                                    No = reader.GetInt32(1),
-                                    Name = GetStringOrEmpty(reader, 2),
-                                    Category = reader.GetInt32(3),
-                                    FoamName = GetStringOrEmpty(reader, 4),
-                                    Weight = reader.GetDecimal(5),
-                                    Sticker1 = GetStringOrEmpty(reader, 6),
-                                    Sticker2 = GetStringOrEmpty(reader, 7),
-                                    Sticker3 = GetStringOrEmpty(reader, 8)
+                                    Name = GetStringOrEmpty(reader, 1),
+                                    Category = reader.GetInt32(2),
+                                    FoamName = GetStringOrEmpty(reader, 3),
+                                    Weight = reader.GetDecimal(4),
+                                    Sticker1 = GetStringOrEmpty(reader, 5),
+                                    Sticker2 = GetStringOrEmpty(reader, 6),
+                                    Sticker3 = GetStringOrEmpty(reader, 7)
                                 });
                             }
                         }
@@ -272,6 +296,84 @@ namespace FireWork
                     cmd.CommandType = CommandType.Text;
                     cmd.ExecuteNonQuery();
                 }
+            }
+        }
+
+        #endregion
+
+        #region Report
+
+        public static List<ReportDto> GetReportData(int no)
+        {
+            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
+            {
+                connection.Open();
+
+                var data = new List<ReportDto>();
+
+                using (var command = new SQLiteCommand($"select datetime(Date,'unixepoch'), weight, name, STICKER_1, STICKER_2, STICKER_3, FOAM_NAME from SERVICE ser inner join STATEMENT st on ser.STATEMENT_ID = st.id where st.no > {no}", connection))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                var date = ParseDate(reader.GetString(0));
+                                var unitWeightType = reader.GetInt32(1) > 25 ? "Возим    пожарог." : "Носим    пожарог.";
+                                var unitModel = GetStringOrEmpty(reader, 2);
+                                var sticker1 = GetStringOrEmpty(reader, 3);
+                                var sticker2 = GetStringOrEmpty(reader, 4);
+                                var sticker3 = GetStringOrEmpty(reader, 5);
+                                var foamName = GetStringOrEmpty(reader, 6);
+
+                                if(string.IsNullOrEmpty(sticker1)) 
+                                {
+                                    data.Add(new ReportDto()
+                                    {
+                                        Date = date.ToString("dd.MM.yyyy"),
+                                        UnitWeightType = unitWeightType,
+                                        UnitModel = unitModel,
+                                        ServiceType = "Техн.об.",
+                                        Sticker = sticker1,
+                                        TradeNameFoam = foamName,
+                                        DataNext = date.AddYears(1).ToString("dd.MM.yyyy")
+                                    });
+                                }
+
+                                if (string.IsNullOrEmpty(sticker2))
+                                {
+                                    data.Add(new ReportDto()
+                                    {
+                                        Date = date.ToString("dd.MM.yyyy"),
+                                        UnitWeightType = unitWeightType,
+                                        UnitModel = unitModel,
+                                        ServiceType = "Презар.",
+                                        Sticker = sticker2,
+                                        TradeNameFoam = foamName,
+                                        DataNext = date.AddYears(1).ToString("dd.MM.yyyy")
+                                    });
+                                }
+
+                                if (string.IsNullOrEmpty(sticker3))
+                                {
+                                    data.Add(new ReportDto()
+                                    {
+                                        Date = date.ToString("dd.MM.yyyy"),
+                                        UnitWeightType = unitWeightType,
+                                        UnitModel = unitModel,
+                                        ServiceType = "Презар.",
+                                        Sticker = sticker3,
+                                        TradeNameFoam = foamName,
+                                        DataNext = date.AddYears(1).ToString("dd.MM.yyyy")
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                return data;
             }
         }
 

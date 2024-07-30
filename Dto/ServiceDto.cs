@@ -6,8 +6,6 @@
 
         public string Name { get; set; }
 
-        public int No { get; set; }
-
         public int Category { get; set; }
 
         public string FoamName { get; set; }

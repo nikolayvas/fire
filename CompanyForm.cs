@@ -112,7 +112,6 @@ namespace FireWork
                 {
                     Id = x.Id,
                     Name = x.Name,
-                    No = x.No,
                     Category = "Категория " + x.Category,
                     Category2 = x.Category == 1 ? "ВОДА" : (x.Category == 2 ? "ПРАХ" : "CO2"),
                     FoamName = x.FoamName,
@@ -136,7 +135,10 @@ namespace FireWork
         {
             var senderGrid = (DataGridView)sender;
 
-            if ((e.ColumnIndex == -1 || senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn) &&
+            if (e.ColumnIndex < 0)
+                return;
+
+            if ((senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn) &&
                 e.RowIndex >= 0)
             {
                 var selectedRow = senderGrid.Rows[e.RowIndex];

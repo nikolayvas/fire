@@ -15,6 +15,12 @@ namespace FireWork
             this.Text = "Противопожарно обслужване";
 
             LoadData();
+            LoadProtocolNo();
+        }
+
+        private void LoadProtocolNo()
+        {
+            this.txtProtocolNo.Text = DBAccess.LastStatementNo().ToString();
         }
 
         private void ErrorHandler(object sender, UnhandledExceptionEventArgs args)
@@ -62,6 +68,12 @@ namespace FireWork
 
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.DataSource = new SortableBindingList<CompanyDto>(data);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Report2Form reportForm = new Report2Form();
+            reportForm.ShowDialog();
         }
     }
 }

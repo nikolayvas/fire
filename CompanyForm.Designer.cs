@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -45,7 +45,10 @@
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.button2 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.columnServiceNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtAddress = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
+            this.grd2Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnServiceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnServiceCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnServiceWeight = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -54,9 +57,6 @@
             this.columnServiceType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnServiceStickers = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.delete = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.txtAddress = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -208,7 +208,7 @@
             this.dataGridView2.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.columnServiceNo,
+            this.grd2Id,
             this.columnServiceName,
             this.columnServiceCategory,
             this.columnServiceWeight,
@@ -217,14 +217,14 @@
             this.columnServiceType,
             this.columnServiceStickers,
             this.delete});
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView2.Location = new System.Drawing.Point(-1, 41);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersWidth = 51;
@@ -253,14 +253,40 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "Технически обслужвания";
             // 
-            // columnServiceNo
+            // txtAddress
             // 
-            this.columnServiceNo.DataPropertyName = "No";
-            this.columnServiceNo.HeaderText = "№ по ред";
-            this.columnServiceNo.MinimumWidth = 6;
-            this.columnServiceNo.Name = "columnServiceNo";
-            this.columnServiceNo.ReadOnly = true;
-            this.columnServiceNo.Width = 125;
+            this.txtAddress.Location = new System.Drawing.Point(845, 7);
+            this.txtAddress.Name = "txtAddress";
+            this.txtAddress.Size = new System.Drawing.Size(687, 22);
+            this.txtAddress.TabIndex = 7;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(783, 13);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(47, 16);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Адрес";
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(1546, 7);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 8;
+            this.button4.Text = "Запази";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // grd2Id
+            // 
+            this.grd2Id.DataPropertyName = "Id";
+            this.grd2Id.HeaderText = "Id";
+            this.grd2Id.MinimumWidth = 6;
+            this.grd2Id.Name = "grd2Id";
+            this.grd2Id.Visible = false;
+            this.grd2Id.Width = 125;
             // 
             // columnServiceName
             // 
@@ -312,8 +338,8 @@
             // columnServiceType
             // 
             this.columnServiceType.DataPropertyName = "ServiceType";
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.columnServiceType.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.columnServiceType.DefaultCellStyle = dataGridViewCellStyle1;
             this.columnServiceType.HeaderText = "Вид на извършеното обслужване (техническо обслужване, презареждане, хидростатично" +
     " изпитване на устойчивост на налягане)";
             this.columnServiceType.MinimumWidth = 6;
@@ -324,8 +350,8 @@
             // columnServiceStickers
             // 
             this.columnServiceStickers.DataPropertyName = "Sticker";
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.columnServiceStickers.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.columnServiceStickers.DefaultCellStyle = dataGridViewCellStyle2;
             this.columnServiceStickers.HeaderText = "Номер на стикер";
             this.columnServiceStickers.MinimumWidth = 6;
             this.columnServiceStickers.Name = "columnServiceStickers";
@@ -341,32 +367,6 @@
             this.delete.Text = "X";
             this.delete.UseColumnTextForButtonValue = true;
             this.delete.Width = 125;
-            // 
-            // txtAddress
-            // 
-            this.txtAddress.Location = new System.Drawing.Point(845, 7);
-            this.txtAddress.Name = "txtAddress";
-            this.txtAddress.Size = new System.Drawing.Size(687, 22);
-            this.txtAddress.TabIndex = 7;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(783, 13);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(47, 16);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Адрес";
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(1546, 7);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 8;
-            this.button4.Text = "Запази";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // CompanyForm
             // 
@@ -412,7 +412,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn columnStatementDate;
         private System.Windows.Forms.DataGridViewButtonColumn columnStatementEdit;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnServiceNo;
+        private System.Windows.Forms.TextBox txtAddress;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn grd2Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnServiceName;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnServiceCategory;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnServiceWeight;
@@ -421,8 +424,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn columnServiceType;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnServiceStickers;
         private System.Windows.Forms.DataGridViewButtonColumn delete;
-        private System.Windows.Forms.TextBox txtAddress;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button4;
     }
 }
