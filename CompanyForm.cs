@@ -13,10 +13,14 @@ namespace FireWork
 
         private int SelectedStatementId { get; set; }
 
-        public CompanyForm(int companyId, string name)
+        private Main MainForm { get; }
+
+        public CompanyForm(Main parent, int companyId, string name, string address)
         {
+            MainForm = parent;
             InitializeComponent();
-            this.textBox1.Text = name;
+            this.txtName.Text = name;
+            this.txtAddress.Text = address;
             CompanyId = companyId;
             this.button2.Enabled = false;
             this.button3.Enabled = false;
@@ -126,6 +130,42 @@ namespace FireWork
             var services = DBAccess.LoadServices(SelectedStatementId);
 
             StatementDocGenerator.GenerateStatemet(company, statement, ConvertServices(services), $"{Application.StartupPath}\\template.dot");
+        }
+
+        private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var senderGrid = (DataGridView)sender;
+
+            if ((e.ColumnIndex == -1 || senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn) &&
+                e.RowIndex >= 0)
+            {
+                var selectedRow = senderGrid.Rows[e.RowIndex];
+                var serviceId = int.Parse(selectedRow.Cells[0].Value.ToString());
+
+                var confirmResult = MessageBox.Show("Сигурен ли си?",
+                                     "Изтриване на запис!",
+                                     MessageBoxButtons.YesNo);
+
+                if(confirmResult == DialogResult.Yes)
+                {
+                    DBAccess.RemoveService(serviceId);
+                    LoadServicesData();
+                }
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            CompanyDto update = new CompanyDto()
+            {
+                Id = CompanyId,
+                Name = this.txtName.Text,
+                Address = this.txtAddress.Text
+            };
+
+            DBAccess.UpdateCompany(update);
+
+            MainForm.LoadData();
         }
     }
 }

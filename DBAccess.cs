@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
@@ -19,7 +20,7 @@ namespace FireWork
 
                 var data = new List<CompanyDto>();
 
-                using (var command = new SQLiteCommand("SELECT Id, Name, datetime(Date,'unixepoch') FROM COMPANY ORDER BY Id Desc", connection))
+                using (var command = new SQLiteCommand("SELECT Id, Name, Address, datetime(Date,'unixepoch') FROM COMPANY ORDER BY Id Desc", connection))
                 {
                     using (var reader = command.ExecuteReader())
                     {
@@ -30,8 +31,9 @@ namespace FireWork
                                 data.Add(new CompanyDto()
                                 {
                                     Id = reader.GetInt32(0),
-                                    Name = reader.GetString(1),
-                                    Date = ParseDate(reader.GetString(2))
+                                    Name = GetStringOrEmpty(reader, 1),
+                                    Address = GetStringOrEmpty(reader, 2),
+                                    Date = ParseDate(reader.GetString(3))
                                 });
                             }
                         }
@@ -51,7 +53,7 @@ namespace FireWork
 
                 var data = new List<CompanyDto>();
 
-                using (var command = new SQLiteCommand($"SELECT Id, Name, datetime(Date,'unixepoch') FROM COMPANY WHERE id = {id} ORDER BY Id Desc", connection))
+                using (var command = new SQLiteCommand($"SELECT Id, Name, Address, datetime(Date,'unixepoch') FROM COMPANY WHERE id = {id} ORDER BY Id Desc", connection))
                 {
                     using (var reader = command.ExecuteReader())
                     {
@@ -62,8 +64,9 @@ namespace FireWork
                                 data.Add(new CompanyDto()
                                 {
                                     Id = reader.GetInt32(0),
-                                    Name = reader.GetString(1),
-                                    Date = ParseDate(reader.GetString(2))
+                                    Name = GetStringOrEmpty(reader, 1),
+                                    Address = GetStringOrEmpty(reader, 2),
+                                    Date = ParseDate(reader.GetString(3))
                                 });
                             }
                         }
@@ -80,16 +83,36 @@ namespace FireWork
             using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
             {
                 connection.Open();
-                string sql = "INSERT INTO COMPANY(Name, Date) VALUES(@param, strftime ('%s', 'now'))";
+                string sql = "INSERT INTO COMPANY(Name, Address, Date) VALUES(@param0, @param1, strftime ('%s', 'now'))";
 
                 using (var cmd = new SQLiteCommand(sql, connection))
                 {
-                    cmd.Parameters.Add("@param", DbType.String, 50).Value = dto.Name;
+                    cmd.Parameters.Add("@param0", DbType.String, 50).Value = dto.Name;
+                    cmd.Parameters.Add("@param1", DbType.String, 100).Value = dto.Address;
                     cmd.CommandType = CommandType.Text;
                     cmd.ExecuteNonQuery();
                 }
             }
         }
+
+        public static void UpdateCompany(CompanyDto dto)
+        {
+            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
+            {
+                connection.Open();
+                string sql = "UPDATE COMPANY SET Name = @param0, Address = @param1 WHERE id = @param2";
+
+                using (var cmd = new SQLiteCommand(sql, connection))
+                {
+                    cmd.Parameters.Add("@param0", DbType.String, 50).Value = dto.Name;
+                    cmd.Parameters.Add("@param1", DbType.String, 100).Value = dto.Address;
+                    cmd.Parameters.Add("@param2", DbType.Int64).Value = dto.Id;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         #endregion
 
         #region Statement
@@ -219,13 +242,13 @@ namespace FireWork
                                 {
                                     Id = reader.GetInt32(0),
                                     No = reader.GetInt32(1),
-                                    Name = reader.GetString(2),
+                                    Name = GetStringOrEmpty(reader, 2),
                                     Category = reader.GetInt32(3),
-                                    FoamName = reader.GetString(4),
+                                    FoamName = GetStringOrEmpty(reader, 4),
                                     Weight = reader.GetDecimal(5),
-                                    Sticker1 = reader[6] == DBNull.Value ? "" : reader[6].ToString(),
-                                    Sticker2 = reader[7] == DBNull.Value ? "" : reader[7].ToString(),
-                                    Sticker3 = reader[8] == DBNull.Value ? "" : reader[8].ToString()
+                                    Sticker1 = GetStringOrEmpty(reader, 6),
+                                    Sticker2 = GetStringOrEmpty(reader, 7),
+                                    Sticker3 = GetStringOrEmpty(reader, 8)
                                 });
                             }
                         }
@@ -235,6 +258,23 @@ namespace FireWork
                 return data;
             }
         }
+
+        public static void RemoveService(int serviceId)
+        {
+            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
+            {
+                connection.Open();
+                string sql = "DELETE FROM SERVICE WHERE id = @param0";
+
+                using (var cmd = new SQLiteCommand(sql, connection))
+                {
+                    cmd.Parameters.Add("@param0", DbType.Int64).Value = serviceId;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         #endregion
 
         private static DateTime ParseDate(string data)
@@ -249,9 +289,9 @@ namespace FireWork
             }
         }
 
-        internal static CompanyDto GetCompany(int companyId)
+        private static string GetStringOrEmpty(SQLiteDataReader reader, int column)
         {
-            throw new NotImplementedException();
+            return reader[column] == DBNull.Value ? "" : reader[column].ToString();
         }
     }
 }

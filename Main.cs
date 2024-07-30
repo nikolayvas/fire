@@ -46,12 +46,17 @@ namespace FireWork
             {
                 var selectedRow = senderGrid.Rows[e.RowIndex];
 
-                CompanyForm companyForm = new CompanyForm(int.Parse(selectedRow.Cells[0].Value.ToString()), selectedRow.Cells[1].Value.ToString());
+                CompanyForm companyForm = new CompanyForm(
+                    this,
+                    int.Parse(selectedRow.Cells[0].Value.ToString()), 
+                    selectedRow.Cells[1].Value.ToString(),
+                    selectedRow.Cells[2].Value.ToString());
+
                 companyForm.ShowDialog();
             }
         }
 
-        private void LoadData()
+        public void LoadData()
         {
             var data = DBAccess.LoadCompanies();
 

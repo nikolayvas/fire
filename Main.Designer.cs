@@ -106,7 +106,7 @@ namespace FireWork
             this.cName.MinimumWidth = 6;
             this.cName.Name = "cName";
             this.cName.ReadOnly = true;
-            this.cName.Width = 125;
+            this.cName.Width = 250;
             // 
             // address
             // 
@@ -115,7 +115,7 @@ namespace FireWork
             this.address.MinimumWidth = 6;
             this.address.Name = "address";
             this.address.ReadOnly = true;
-            this.address.Width = 125;
+            this.address.Width = 250;
             // 
             // Date
             // 
