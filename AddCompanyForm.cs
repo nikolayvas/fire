@@ -38,5 +38,13 @@ namespace FireWork
         {
             this.DialogResult = DialogResult.Cancel;
         }
+
+        private void AddCompanyForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
     }
 }

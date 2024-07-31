@@ -28,28 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.btnGenerateReport = new System.Windows.Forms.Button();
+            this.txtNo = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // button1
+            // btnGenerateReport
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(12, 72);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(171, 34);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Генерирай репорт";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnGenerateReport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnGenerateReport.Location = new System.Drawing.Point(12, 72);
+            this.btnGenerateReport.Name = "btnGenerateReport";
+            this.btnGenerateReport.Size = new System.Drawing.Size(171, 34);
+            this.btnGenerateReport.TabIndex = 5;
+            this.btnGenerateReport.Text = "Генерирай репорт";
+            this.btnGenerateReport.UseVisualStyleBackColor = true;
+            this.btnGenerateReport.Click += new System.EventHandler(this.btnGenerateReport_Click);
             // 
-            // textBox1
+            // txtNo
             // 
-            this.textBox1.Location = new System.Drawing.Point(172, 19);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 22);
-            this.textBox1.TabIndex = 4;
+            this.txtNo.Location = new System.Drawing.Point(172, 19);
+            this.txtNo.Name = "txtNo";
+            this.txtNo.Size = new System.Drawing.Size(100, 22);
+            this.txtNo.TabIndex = 4;
             // 
             // label1
             // 
@@ -65,15 +65,17 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(680, 118);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.btnGenerateReport);
+            this.Controls.Add(this.txtNo);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Report2Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Дневник за презареждане";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Report2Form_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -81,8 +83,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button btnGenerateReport;
+        private System.Windows.Forms.TextBox txtNo;
         private System.Windows.Forms.Label label1;
     }
 }

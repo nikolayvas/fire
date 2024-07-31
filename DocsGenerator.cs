@@ -6,6 +6,8 @@ namespace FireWork
 {
     public static class DocsGenerator
     {
+        static object missing = Missing.Value;
+
         public static void GenerateStatemet(CompanyDto company, StatementDto statement, ServiceUIDto[] services, string docPath)
         {
             Application wApp = new Application
@@ -117,7 +119,6 @@ namespace FireWork
             findObject.Replacement.ClearFormatting();
             findObject.Replacement.Text = replace;
 
-            object missing = Missing.Value;
             object replaceAll = WdReplace.wdReplaceOne;
             findObject.Execute(ref missing, ref missing, ref missing, ref missing, ref missing,
             ref missing, ref missing, ref missing, ref missing, ref missing,

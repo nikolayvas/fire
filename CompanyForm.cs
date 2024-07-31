@@ -47,19 +47,54 @@ namespace FireWork
             dataGridView2.DataSource = new SortableBindingList<ServiceUIDto>(gridData);
         }
 
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        int rowIndex = -1;
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
             var senderGrid = (DataGridView)sender;
-
-            if ((e.ColumnIndex == -1 || senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn) &&
-                e.RowIndex >= 0)
+            if(senderGrid.CurrentRow == null)
             {
-                var selectedRow = senderGrid.Rows[e.RowIndex];
+                return;
+            }
+
+            if (senderGrid.CurrentRow.Index != rowIndex)
+            {
+                rowIndex = senderGrid.CurrentRow.Index;
+                var selectedRow = senderGrid.Rows[rowIndex];
+
                 this.SelectedStatementId = int.Parse(selectedRow.Cells[0].Value.ToString());
                 this.btnAddService.Enabled = true;
                 this.btnPrint1.Enabled = true;
                 this.btnTwin.Enabled = true;
+
                 LoadServicesData();
+            }
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var senderGrid = (DataGridView)sender;
+
+            if (e.ColumnIndex < 0)
+                return;
+
+            if ((senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn) &&
+                e.RowIndex >= 0)
+            {
+                var selectedRow = senderGrid.Rows[e.RowIndex];
+                var statementId = int.Parse(selectedRow.Cells[0].Value.ToString());
+
+                if (e.ColumnIndex == senderGrid.ColumnCount - 1)
+                {
+                    var confirmResult = MessageBox.Show("Сигурен ли си?",
+                                         "Изтриване на запис!",
+                                         MessageBoxButtons.YesNo);
+
+                    if (confirmResult == DialogResult.Yes)
+                    {
+                        //DBAccess.RemoveService(serviceId);
+                        LoadStatementsData();
+                    }
+                }
             }
         }
 
@@ -139,7 +174,6 @@ namespace FireWork
                         LoadServicesData();
                     }
                 }
-
             }
         }
 
@@ -184,17 +218,14 @@ namespace FireWork
         {
             if(dataGridView1.SelectedRows.Count > 0)
             {
-                var confirmResult = MessageBox.Show("Сигурен ли си?",
-                                         "Дублиране на запис!",
-                                         MessageBoxButtons.YesNo);
+                var selectedRow = dataGridView1.SelectedRows[0];
+                var statementId = int.Parse(selectedRow.Cells[0].Value.ToString());
 
-                if (confirmResult == DialogResult.Yes)
+                AddStatementForm addForm = new AddStatementForm(CompanyId, DBAccess.LastStatementNo() + 1, statementId);
+                addForm.ShowDialog();
+
+                if (addForm.DialogResult == DialogResult.OK)
                 {
-                    var selectedRow = dataGridView1.SelectedRows[0];
-                    var statementId = int.Parse(selectedRow.Cells[0].Value.ToString());
-
-                    DBAccess.TwinStatement(CompanyId, statementId, DBAccess.LastStatementNo() + 1);
-
                     LoadStatementsData();
                     MainForm.LoadProtocolNo();
                 }
@@ -208,6 +239,14 @@ namespace FireWork
             var services = DBAccess.LoadServices(SelectedStatementId);
 
             DocsGenerator.GenerateStatemet(company, statement, ConvertServices(services), $"{Application.StartupPath}\\template.dot");
+        }
+
+        private void CompanyForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
         }
     }
 }

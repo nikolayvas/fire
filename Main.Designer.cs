@@ -36,10 +36,10 @@ namespace FireWork
             this.address = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cDoc = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnAddClient = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtProtocolNo = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnGenerateReport = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -114,16 +114,16 @@ namespace FireWork
             this.cDoc.UseColumnTextForButtonValue = true;
             this.cDoc.Width = 125;
             // 
-            // button1
+            // btnAddClient
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(3, 670);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(144, 44);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Добави нов клиент";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnAddClient.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnAddClient.Location = new System.Drawing.Point(3, 670);
+            this.btnAddClient.Name = "btnAddClient";
+            this.btnAddClient.Size = new System.Drawing.Size(144, 44);
+            this.btnAddClient.TabIndex = 2;
+            this.btnAddClient.Text = "Добави нов клиент";
+            this.btnAddClient.UseVisualStyleBackColor = true;
+            this.btnAddClient.Click += new System.EventHandler(this.btnAddNewClient_Click);
             // 
             // label1
             // 
@@ -144,25 +144,25 @@ namespace FireWork
             this.txtProtocolNo.Size = new System.Drawing.Size(100, 22);
             this.txtProtocolNo.TabIndex = 4;
             // 
-            // button2
+            // btnGenerateReport
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(1188, 670);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(144, 44);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Дневник";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnGenerateReport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnGenerateReport.Location = new System.Drawing.Point(1188, 670);
+            this.btnGenerateReport.Name = "btnGenerateReport";
+            this.btnGenerateReport.Size = new System.Drawing.Size(144, 44);
+            this.btnGenerateReport.TabIndex = 5;
+            this.btnGenerateReport.Text = "Дневник";
+            this.btnGenerateReport.UseVisualStyleBackColor = true;
+            this.btnGenerateReport.Click += new System.EventHandler(this.btnGenerateReport_Click);
             // 
             // Main
             // 
             this.ClientSize = new System.Drawing.Size(1335, 717);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnGenerateReport);
             this.Controls.Add(this.txtProtocolNo);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnAddClient);
             this.Name = "Main";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -174,7 +174,7 @@ namespace FireWork
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnAddClient;
         private System.Windows.Forms.DataGridViewTextBoxColumn cId;
         private System.Windows.Forms.DataGridViewTextBoxColumn cName;
         private System.Windows.Forms.DataGridViewTextBoxColumn address;
@@ -182,6 +182,6 @@ namespace FireWork
         private System.Windows.Forms.DataGridViewButtonColumn cDoc;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtProtocolNo;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnGenerateReport;
     }
 }

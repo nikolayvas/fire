@@ -18,6 +18,15 @@ namespace FireWork
             LoadProtocolNo();
         }
 
+        public void LoadData()
+        {
+            var data = DBAccess.LoadCompanies();
+
+            dataGridView1.AutoGenerateColumns = false;
+            dataGridView1.DataSource = new SortableBindingList<CompanyDto>(data);
+        }
+
+
         public void LoadProtocolNo()
         {
             this.txtProtocolNo.Text = DBAccess.LastStatementNo().ToString();
@@ -32,7 +41,7 @@ namespace FireWork
                    MessageBoxIcon.Exclamation);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnAddNewClient_Click(object sender, EventArgs e)
         {
             AddCompanyForm addForm = new AddCompanyForm();
             addForm.ShowDialog();
@@ -62,15 +71,8 @@ namespace FireWork
             }
         }
 
-        public void LoadData()
-        {
-            var data = DBAccess.LoadCompanies();
 
-            dataGridView1.AutoGenerateColumns = false;
-            dataGridView1.DataSource = new SortableBindingList<CompanyDto>(data);
-        }
-
-        private void button2_Click(object sender, EventArgs e)
+        private void btnGenerateReport_Click(object sender, EventArgs e)
         {
             Report2Form reportForm = new Report2Form();
             reportForm.ShowDialog();

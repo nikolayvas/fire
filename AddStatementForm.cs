@@ -1,4 +1,5 @@
 ﻿using FireWork.Dto;
+using FireWork.Helpers;
 using System;
 using System.Windows.Forms;
 
@@ -8,33 +9,54 @@ namespace FireWork
     {
         private int CompanyId {  get; set; }
 
+        public int TwinStatement { get; }
+
         public AddStatementForm(int companyId, int statementNo)
         {
             CompanyId = companyId;
+
             InitializeComponent();
 
-            textBox1.Text = statementNo.ToString();
+            txtNo.Text = statementNo.ToString();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public AddStatementForm(int companyId, int statementNo, int twinStatement)
         {
-            try
-            {
-                var dto = new StatementDto()
-                {
-                    No = int.Parse(textBox1.Text),
-                };
+            CompanyId = companyId;
+            TwinStatement = twinStatement;
+            InitializeComponent();
 
-                DBAccess.AddNewStatement(CompanyId, dto);
+            txtNo.Text = statementNo.ToString();
+            btnAdd.Text = "Дублирай";
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            ExceptionWrapper.Wrap(() =>
+            {
+                if(TwinStatement == 0)
+                {
+                    var dto = new StatementDto()
+                    {
+                        No = int.Parse(txtNo.Text),
+                    };
+
+                    DBAccess.AddNewStatement(CompanyId, dto);
+                }
+                else
+                {
+                    DBAccess.TwinStatement(CompanyId, TwinStatement, DBAccess.LastStatementNo() + 1);
+                }
 
                 DialogResult = DialogResult.OK;
-            }
-            catch (Exception ex)
+            });
+        }
+
+        private void AddStatementForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
             {
-                MessageBox.Show(ex.ToString(),
-                    "Error Information",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Exclamation);
+                this.Close();
             }
         }
     }

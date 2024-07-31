@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -38,10 +38,6 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.btnTwin = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnStatementNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnStatementDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnStatementEdit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.btnPrint1 = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.grd2Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -59,6 +55,10 @@
             this.txtAddress = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.btnUpdateCompany = new System.Windows.Forms.Button();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnStatementNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnStatementDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgw1Delete = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -152,8 +152,9 @@
             this.Id,
             this.columnStatementNo,
             this.columnStatementDate,
-            this.columnStatementEdit});
+            this.dgw1Delete});
             this.dataGridView1.Location = new System.Drawing.Point(3, 41);
+            this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
@@ -161,47 +162,7 @@
             this.dataGridView1.Size = new System.Drawing.Size(398, 669);
             this.dataGridView1.TabIndex = 5;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
-            // 
-            // Id
-            // 
-            this.Id.DataPropertyName = "Id";
-            this.Id.Frozen = true;
-            this.Id.HeaderText = "Id";
-            this.Id.MinimumWidth = 6;
-            this.Id.Name = "Id";
-            this.Id.Visible = false;
-            this.Id.Width = 125;
-            // 
-            // columnStatementNo
-            // 
-            this.columnStatementNo.DataPropertyName = "No";
-            this.columnStatementNo.Frozen = true;
-            this.columnStatementNo.HeaderText = "Номер";
-            this.columnStatementNo.MinimumWidth = 6;
-            this.columnStatementNo.Name = "columnStatementNo";
-            this.columnStatementNo.ReadOnly = true;
-            this.columnStatementNo.Width = 70;
-            // 
-            // columnStatementDate
-            // 
-            this.columnStatementDate.DataPropertyName = "Date";
-            this.columnStatementDate.Frozen = true;
-            this.columnStatementDate.HeaderText = "Дата";
-            this.columnStatementDate.MinimumWidth = 6;
-            this.columnStatementDate.Name = "columnStatementDate";
-            this.columnStatementDate.ReadOnly = true;
-            this.columnStatementDate.Width = 125;
-            // 
-            // columnStatementEdit
-            // 
-            this.columnStatementEdit.Frozen = true;
-            this.columnStatementEdit.HeaderText = "";
-            this.columnStatementEdit.MinimumWidth = 6;
-            this.columnStatementEdit.Name = "columnStatementEdit";
-            this.columnStatementEdit.ReadOnly = true;
-            this.columnStatementEdit.Text = "->";
-            this.columnStatementEdit.UseColumnTextForButtonValue = true;
-            this.columnStatementEdit.Width = 50;
+            this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
             // btnPrint1
             // 
@@ -234,15 +195,16 @@
             this.columnServiceStickers,
             this.delete,
             this.grd2EditColumn});
-            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle24.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle18;
             this.dataGridView2.Location = new System.Drawing.Point(-1, 41);
+            this.dataGridView2.MultiSelect = false;
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.RowTemplate.Height = 24;
@@ -309,8 +271,8 @@
             // columnServiceType
             // 
             this.columnServiceType.DataPropertyName = "ServiceType";
-            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.columnServiceType.DefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.columnServiceType.DefaultCellStyle = dataGridViewCellStyle16;
             this.columnServiceType.HeaderText = "Вид на извършеното обслужване (техническо обслужване, презареждане, хидростатично" +
     " изпитване на устойчивост на налягане)";
             this.columnServiceType.MinimumWidth = 6;
@@ -321,8 +283,8 @@
             // columnServiceStickers
             // 
             this.columnServiceStickers.DataPropertyName = "Sticker";
-            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.columnServiceStickers.DefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.columnServiceStickers.DefaultCellStyle = dataGridViewCellStyle17;
             this.columnServiceStickers.HeaderText = "Номер на стикер";
             this.columnServiceStickers.MinimumWidth = 6;
             this.columnServiceStickers.Name = "columnServiceStickers";
@@ -395,6 +357,46 @@
             this.btnUpdateCompany.UseVisualStyleBackColor = true;
             this.btnUpdateCompany.Click += new System.EventHandler(this.btnUpdateCompany_Click);
             // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.Frozen = true;
+            this.Id.HeaderText = "Id";
+            this.Id.MinimumWidth = 6;
+            this.Id.Name = "Id";
+            this.Id.Visible = false;
+            this.Id.Width = 125;
+            // 
+            // columnStatementNo
+            // 
+            this.columnStatementNo.DataPropertyName = "No";
+            this.columnStatementNo.Frozen = true;
+            this.columnStatementNo.HeaderText = "Номер";
+            this.columnStatementNo.MinimumWidth = 6;
+            this.columnStatementNo.Name = "columnStatementNo";
+            this.columnStatementNo.ReadOnly = true;
+            this.columnStatementNo.Width = 70;
+            // 
+            // columnStatementDate
+            // 
+            this.columnStatementDate.DataPropertyName = "Date";
+            this.columnStatementDate.Frozen = true;
+            this.columnStatementDate.HeaderText = "Дата";
+            this.columnStatementDate.MinimumWidth = 6;
+            this.columnStatementDate.Name = "columnStatementDate";
+            this.columnStatementDate.ReadOnly = true;
+            this.columnStatementDate.Width = 125;
+            // 
+            // dgw1Delete
+            // 
+            this.dgw1Delete.HeaderText = "";
+            this.dgw1Delete.MinimumWidth = 6;
+            this.dgw1Delete.Name = "dgw1Delete";
+            this.dgw1Delete.ReadOnly = true;
+            this.dgw1Delete.Text = "Х";
+            this.dgw1Delete.UseColumnTextForButtonValue = true;
+            this.dgw1Delete.Width = 50;
+            // 
             // CompanyForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -406,10 +408,12 @@
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.label1);
+            this.KeyPreview = true;
             this.MinimizeBox = false;
             this.Name = "CompanyForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Контрагент";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CompanyForm_KeyDown);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -434,10 +438,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.Button btnAddService;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnStatementNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn columnStatementDate;
-        private System.Windows.Forms.DataGridViewButtonColumn columnStatementEdit;
         private System.Windows.Forms.Button btnPrint1;
         private System.Windows.Forms.TextBox txtAddress;
         private System.Windows.Forms.Label label4;
@@ -453,5 +453,9 @@
         private System.Windows.Forms.DataGridViewButtonColumn delete;
         private System.Windows.Forms.DataGridViewButtonColumn grd2EditColumn;
         private System.Windows.Forms.Button btnTwin;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnStatementNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnStatementDate;
+        private System.Windows.Forms.DataGridViewButtonColumn dgw1Delete;
     }
 }

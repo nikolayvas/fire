@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FireWork.Helpers;
+using System;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -11,22 +12,23 @@ namespace FireWork
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnGenerateReport_Click(object sender, EventArgs e)
         {
-            try
+            ExceptionWrapper.Wrap(() =>
             {
-                var protocolNo = int.Parse(textBox1.Text);
+                var protocolNo = int.Parse(txtNo.Text);
                 var diaryRows = DBAccess.GetReportData(protocolNo);
                 var doubleArray = diaryRows.Concat(diaryRows);
 
                 DocsGenerator.GenerateDiary(doubleArray.ToArray(), $"{Application.StartupPath}\\diary.dot");
-            }
-            catch(Exception ex)
+            });
+        }
+
+        private void Report2Form_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
             {
-                MessageBox.Show(ex.ToString(),
-                   "Error Information",
-                   MessageBoxButtons.OK,
-                   MessageBoxIcon.Exclamation);
+                this.Close();
             }
         }
     }

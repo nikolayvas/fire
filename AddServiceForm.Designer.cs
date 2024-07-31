@@ -225,11 +225,13 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AddServiceForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Техническо обслужване";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AddServiceForm_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
