@@ -91,7 +91,7 @@ namespace FireWork
 
                     if (confirmResult == DialogResult.Yes)
                     {
-                        //DBAccess.RemoveService(serviceId);
+                        DBAccess.RemoveStatement(statementId);
                         LoadStatementsData();
                     }
                 }

@@ -227,7 +227,6 @@ namespace FireWork
 
         public static void TwinStatement(int companyId, int statementId, int no)
         {
-            var statement = LoadStatement(statementId);
             var services = LoadServices(statementId);
 
             var newStatementId = AddNewStatement(companyId, new StatementDto()
@@ -238,6 +237,22 @@ namespace FireWork
             foreach (var item in services)
             {
                 AddNewService(newStatementId, item);
+            }
+        }
+
+        public static void RemoveStatement(int statementId)
+        {
+            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
+            {
+                connection.Open();
+                string sql = "DELETE FROM STATEMENT WHERE id = @param0";
+
+                using (var cmd = new SQLiteCommand(sql, connection))
+                {
+                    cmd.Parameters.Add("@param0", DbType.Int64).Value = statementId;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
 

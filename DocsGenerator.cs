@@ -12,7 +12,7 @@ namespace FireWork
         {
             Application wApp = new Application
             {
-                Visible = true
+                Visible = false
             };
             Documents wDocs = wApp.Documents;
             Document wDoc = wDocs.Open(docPath, ReadOnly: true, Visible: true);
@@ -25,11 +25,12 @@ namespace FireWork
             var table = wDoc.Tables[1];
 
             var rowsStartIndex = 3;
+            var serviceNumber = 0;
 
             foreach(var service in services)
             {
                 table.Rows.Add();
-                table.Rows[rowsStartIndex].Cells[1].Range.Text = service.No.ToString();
+                table.Rows[rowsStartIndex].Cells[1].Range.Text = (++serviceNumber).ToString();
                 table.Rows[rowsStartIndex].Cells[2].Range.Text = service.Name;
                 table.Rows[rowsStartIndex].Cells[3].Range.Text = service.Category;
                 table.Rows[rowsStartIndex].Cells[4].Range.Text = service.Weight.ToString();
@@ -43,6 +44,7 @@ namespace FireWork
                 rowsStartIndex++;
             }
 
+            wApp.Visible = true;
             wDoc.Activate();
         }
 
@@ -112,6 +114,30 @@ namespace FireWork
 
         private static void SearchAndReplace(Document doc, string find, string replace)
         {
+            foreach (Range tmpRange in doc.StoryRanges)
+            {
+                // Set the text to find and replace
+                tmpRange.Find.Text = find;
+                tmpRange.Find.Replacement.Text = replace;
+
+                // Set the Find.Wrap property to continue (so it doesn't
+                // prompt the user or stop when it hits the end of
+                // the section)
+                tmpRange.Find.Wrap = WdFindWrap.wdFindContinue;
+
+                // Declare an object to pass as a parameter that sets
+                // the Replace parameter to the "wdReplaceAll" enum
+                object replaceAll = WdReplace.wdReplaceAll;
+
+                // Execute the Find and Replace -- notice that the
+                // 11th parameter is the "replaceAll" enum object
+                tmpRange.Find.Execute(ref missing, ref missing, ref missing,
+                    ref missing, ref missing, ref missing, ref missing,
+                    ref missing, ref missing, ref missing, ref replaceAll,
+                    ref missing, ref missing, ref missing, ref missing);
+            }
+            /*
+
             Find findObject = doc.Content.Find;
             findObject.ClearFormatting();
             findObject.Text = find;
@@ -123,6 +149,7 @@ namespace FireWork
             findObject.Execute(ref missing, ref missing, ref missing, ref missing, ref missing,
             ref missing, ref missing, ref missing, ref missing, ref missing,
                 ref replaceAll, ref missing, ref missing, ref missing, ref missing);
+            */
         }
     }
 }
