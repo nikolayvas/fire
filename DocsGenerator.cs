@@ -46,29 +46,39 @@ namespace FireWork
 
             wApp.Visible = true;
             wDoc.Activate();
+
+            string filePath = $"{System.Windows.Forms.Application.StartupPath}\\Протоколи\\Протокол {statement.No} {company.Name}.docx";
+
+            wDoc.SaveAs(
+                FileName: filePath,
+                FileFormat: WdSaveFormat.wdFormatXMLDocument
+            );
         }
 
         public static void GenerateDiary(DiaryDto[] rows, string docPath)
         {
             Application wApp = new Application
             {
+                ScreenUpdating = false,
                 Visible = false
             };
+
             Documents wDocs = wApp.Documents;
-            Document wDoc = wDocs.Open(docPath, ReadOnly: true, Visible: true);
+            Document wDoc = wDocs.Open(docPath, ReadOnly: true, Visible: false);
 
             var table = wDoc.Tables[1];
 
             var rowsStartIndex = 3;
             var rowsCounter = 1;
 
+            table.Rows[1].HeadingFormat = -1;
+            table.Rows[2].HeadingFormat = -1;
+
             foreach (var service in rows)
             {
                 table.Rows.Add();
-                var rowRange = table.Rows[rowsStartIndex].Range;
-                rowRange.ParagraphFormat.LineSpacingRule = WdLineSpacing.wdLineSpaceMultiple;
-                rowRange.ParagraphFormat.LineSpacing = 13.5F;
 
+                table.Rows[rowsStartIndex].HeadingFormat = 0;
                 table.Rows[rowsStartIndex].Range.Font.Size = 11;
 
                 table.Rows[rowsStartIndex].Cells[1].Range.Text = (rowsCounter).ToString();
@@ -89,27 +99,13 @@ namespace FireWork
 
                 table.Rows[rowsStartIndex].Cells[9].Range.Text = service.DataNext;
 
-                if(rowsCounter % 20 == 0)
-                {
-                    rowsStartIndex++;
-                    table.Rows.Add();
-
-                    table.Rows[1].Range.Copy();
-                    table.Rows[rowsStartIndex].Range.Paste();
-
-                    table.Rows[2].Range.Copy();
-
-                    table.Rows.Add();
-                    rowsStartIndex++;
-                    table.Rows[rowsStartIndex].Range.Paste();
-                }
-
                 rowsCounter++;
                 rowsStartIndex++;
             }
 
+            wApp.ScreenUpdating = true;
             wApp.Visible = true;
-            wDoc.Activate();
+            wApp.Activate();
         }
 
         private static void SearchAndReplace(Document doc, string find, string replace)

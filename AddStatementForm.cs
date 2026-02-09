@@ -32,20 +32,21 @@ namespace FireWork
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            var dto = new StatementDto()
+            {
+                No = int.Parse(txtNo.Text),
+                Date = dateTimePicker1.Value
+            };
+
             ExceptionWrapper.Wrap(() =>
             {
                 if(TwinStatement == 0)
                 {
-                    var dto = new StatementDto()
-                    {
-                        No = int.Parse(txtNo.Text),
-                    };
-
                     DBAccess.AddNewStatement(CompanyId, dto);
                 }
                 else
                 {
-                    DBAccess.TwinStatement(CompanyId, TwinStatement, DBAccess.LastStatementNo() + 1);
+                    DBAccess.TwinStatement(CompanyId, TwinStatement, dto);
                 }
 
                 DialogResult = DialogResult.OK;
@@ -57,6 +58,19 @@ namespace FireWork
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
+            }
+        }
+
+        private void txtNo_TextChanged(object sender, EventArgs e)
+        {
+            int no;
+            if (!int.TryParse(txtNo.Text, out no))
+            {
+                this.errorProvider1.SetError(txtNo, "Въведи номер");
+            }
+            else
+            {
+                this.errorProvider1.SetError(txtNo, "");
             }
         }
     }

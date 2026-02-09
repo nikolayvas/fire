@@ -2,7 +2,6 @@
 using Library.Forms;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -15,6 +14,8 @@ namespace FireWork
         private int SelectedStatementId { get; set; }
 
         private Main MainForm { get; }
+
+        private List<ServiceDto> services = new List<ServiceDto>();
 
         public CompanyForm(Main parent, int companyId, string name, string address)
         {
@@ -39,12 +40,14 @@ namespace FireWork
 
         private void LoadServicesData()
         {
-            var data = DBAccess.LoadServices(SelectedStatementId);
+            services = DBAccess.LoadServices(SelectedStatementId);
 
-            var gridData = ConvertServices(data);
+            var gridData = ConvertServices(services);
 
             dataGridView2.AutoGenerateColumns = false;
             dataGridView2.DataSource = new SortableBindingList<ServiceUIDto>(gridData);
+
+            this.btnClone.Visible = dataGridView2.Rows.Count > 0;
         }
 
         int rowIndex = -1;
@@ -157,7 +160,7 @@ namespace FireWork
                     AddServiceForm frm = new AddServiceForm(service);
                     var dialogResult = frm.ShowDialog();
 
-                    if(dialogResult == DialogResult.Yes)
+                    if(dialogResult == DialogResult.OK)
                     {
                         LoadServicesData();
                     }
@@ -238,7 +241,7 @@ namespace FireWork
             var statement = DBAccess.LoadStatement(SelectedStatementId);
             var services = DBAccess.LoadServices(SelectedStatementId);
 
-            DocsGenerator.GenerateStatemet(company, statement, ConvertServices(services), $"{Application.StartupPath}\\template.dot");
+            DocsGenerator.GenerateStatemet(company, statement, ConvertServices(services), $"{Application.StartupPath}\\Протокол.dot");
         }
 
         private void CompanyForm_KeyDown(object sender, KeyEventArgs e)
@@ -247,6 +250,28 @@ namespace FireWork
             {
                 this.Close();
             }
+        }
+
+        private void btnClone_Click(object sender, EventArgs e)
+        {
+            var selectedRow = dataGridView2.SelectedRows.Count > 0 
+                ? dataGridView2.SelectedRows[0] 
+                : dataGridView2.Rows[0];
+
+            var serviceId = int.Parse(selectedRow.Cells[0].Value.ToString());
+
+            var service = services.FirstOrDefault(x => x.Id == serviceId);
+
+            if (service != null)
+            {
+                DBAccess.AddNewService(SelectedStatementId, service);
+                LoadServicesData();
+            }
+            else
+            {
+                throw new Exception("Something is wrong!");
+            }
+            
         }
     }
 }

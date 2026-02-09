@@ -18,7 +18,8 @@ namespace FireWork
                 var dto = new CompanyDto()
                 {
                     Name = txtName.Text,
-                    Address = txtAdderess.Text
+                    Address = txtAdderess.Text,
+                    Date = dateTimePicker1.Value
                 };
 
                 DBAccess.AddNewCompany(dto);

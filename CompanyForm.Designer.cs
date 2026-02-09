@@ -38,6 +38,10 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.btnTwin = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnStatementNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnStatementDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgw1Delete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.btnPrint1 = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.grd2Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -55,10 +59,7 @@
             this.txtAddress = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.btnUpdateCompany = new System.Windows.Forms.Button();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnStatementNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnStatementDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgw1Delete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.btnClone = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -120,6 +121,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.btnClone);
             this.splitContainer1.Panel2.Controls.Add(this.btnPrint1);
             this.splitContainer1.Panel2.Controls.Add(this.dataGridView2);
             this.splitContainer1.Panel2.Controls.Add(this.btnAddService);
@@ -163,6 +165,46 @@
             this.dataGridView1.TabIndex = 5;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
+            // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.Frozen = true;
+            this.Id.HeaderText = "Id";
+            this.Id.MinimumWidth = 6;
+            this.Id.Name = "Id";
+            this.Id.Visible = false;
+            this.Id.Width = 125;
+            // 
+            // columnStatementNo
+            // 
+            this.columnStatementNo.DataPropertyName = "No";
+            this.columnStatementNo.Frozen = true;
+            this.columnStatementNo.HeaderText = "Номер";
+            this.columnStatementNo.MinimumWidth = 6;
+            this.columnStatementNo.Name = "columnStatementNo";
+            this.columnStatementNo.ReadOnly = true;
+            this.columnStatementNo.Width = 70;
+            // 
+            // columnStatementDate
+            // 
+            this.columnStatementDate.DataPropertyName = "Date";
+            this.columnStatementDate.Frozen = true;
+            this.columnStatementDate.HeaderText = "Дата";
+            this.columnStatementDate.MinimumWidth = 6;
+            this.columnStatementDate.Name = "columnStatementDate";
+            this.columnStatementDate.ReadOnly = true;
+            this.columnStatementDate.Width = 125;
+            // 
+            // dgw1Delete
+            // 
+            this.dgw1Delete.HeaderText = "";
+            this.dgw1Delete.MinimumWidth = 6;
+            this.dgw1Delete.Name = "dgw1Delete";
+            this.dgw1Delete.ReadOnly = true;
+            this.dgw1Delete.Text = "Х";
+            this.dgw1Delete.UseColumnTextForButtonValue = true;
+            this.dgw1Delete.Width = 50;
             // 
             // btnPrint1
             // 
@@ -357,45 +399,16 @@
             this.btnUpdateCompany.UseVisualStyleBackColor = true;
             this.btnUpdateCompany.Click += new System.EventHandler(this.btnUpdateCompany_Click);
             // 
-            // Id
+            // btnClone
             // 
-            this.Id.DataPropertyName = "Id";
-            this.Id.Frozen = true;
-            this.Id.HeaderText = "Id";
-            this.Id.MinimumWidth = 6;
-            this.Id.Name = "Id";
-            this.Id.Visible = false;
-            this.Id.Width = 125;
-            // 
-            // columnStatementNo
-            // 
-            this.columnStatementNo.DataPropertyName = "No";
-            this.columnStatementNo.Frozen = true;
-            this.columnStatementNo.HeaderText = "Номер";
-            this.columnStatementNo.MinimumWidth = 6;
-            this.columnStatementNo.Name = "columnStatementNo";
-            this.columnStatementNo.ReadOnly = true;
-            this.columnStatementNo.Width = 70;
-            // 
-            // columnStatementDate
-            // 
-            this.columnStatementDate.DataPropertyName = "Date";
-            this.columnStatementDate.Frozen = true;
-            this.columnStatementDate.HeaderText = "Дата";
-            this.columnStatementDate.MinimumWidth = 6;
-            this.columnStatementDate.Name = "columnStatementDate";
-            this.columnStatementDate.ReadOnly = true;
-            this.columnStatementDate.Width = 125;
-            // 
-            // dgw1Delete
-            // 
-            this.dgw1Delete.HeaderText = "";
-            this.dgw1Delete.MinimumWidth = 6;
-            this.dgw1Delete.Name = "dgw1Delete";
-            this.dgw1Delete.ReadOnly = true;
-            this.dgw1Delete.Text = "Х";
-            this.dgw1Delete.UseColumnTextForButtonValue = true;
-            this.dgw1Delete.Width = 50;
+            this.btnClone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnClone.Location = new System.Drawing.Point(148, 716);
+            this.btnClone.Name = "btnClone";
+            this.btnClone.Size = new System.Drawing.Size(139, 34);
+            this.btnClone.TabIndex = 8;
+            this.btnClone.Text = "Дублирай";
+            this.btnClone.UseVisualStyleBackColor = true;
+            this.btnClone.Click += new System.EventHandler(this.btnClone_Click);
             // 
             // CompanyForm
             // 
@@ -457,5 +470,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn columnStatementNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnStatementDate;
         private System.Windows.Forms.DataGridViewButtonColumn dgw1Delete;
+        private System.Windows.Forms.Button btnClone;
     }
 }

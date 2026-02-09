@@ -74,7 +74,7 @@ namespace FireWork
                     Name = txtName.Text,
                     Category = comboBox1.Text == "CO2" ? 5 : (comboBox1.Text == "ВОДА" ? 1 : 2),
                     FoamName = txtTradeName.Text,
-                    Weight = decimal.Parse(txtWeight.Text),
+                    Weight = txtWeight.Text == "" ? 0 : decimal.Parse(txtWeight.Text),
                     Sticker1 = txtStick1.Visible ? txtStick1.Text : null,
                     Sticker2 = txtStick2.Visible ? txtStick2.Text : null,
                     Sticker3 = txtStick3.Visible ? txtStick3.Text : null,
@@ -106,6 +106,19 @@ namespace FireWork
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
+            }
+        }
+
+        private void txtWeight_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            decimal weight;
+            if (!decimal.TryParse(txtWeight.Text, out weight))
+            {
+                this.errorProvider1.SetError(txtWeight, "Въведи число");
+            }
+            else
+            {
+                this.errorProvider1.SetError(txtWeight, "");
             }
         }
     }

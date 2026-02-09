@@ -26,7 +26,6 @@ namespace FireWork
             dataGridView1.DataSource = new SortableBindingList<CompanyDto>(data);
         }
 
-
         public void LoadProtocolNo()
         {
             this.txtProtocolNo.Text = DBAccess.LastStatementNo().ToString();
@@ -61,16 +60,30 @@ namespace FireWork
             {
                 var selectedRow = senderGrid.Rows[e.RowIndex];
 
-                CompanyForm companyForm = new CompanyForm(
-                    this,
-                    int.Parse(selectedRow.Cells[0].Value.ToString()), 
-                    selectedRow.Cells[1].Value.ToString(),
-                    selectedRow.Cells[2].Value.ToString());
+                if (e.ColumnIndex == 5)
+                {
+                    var confirmResult = MessageBox.Show("Сигурен ли си, че искаш да изтриеш компанията и всички данни за нея?",
+                                         "Изтриване !",
+                                         MessageBoxButtons.YesNo);
 
-                companyForm.ShowDialog();
+                    if (confirmResult == DialogResult.Yes)
+                    {
+                        DBAccess.RemoveCompany(int.Parse(selectedRow.Cells[0].Value.ToString()));
+                        LoadData();
+                    }
+                }
+                else
+                {
+                    CompanyForm companyForm = new CompanyForm(
+                        this,
+                        int.Parse(selectedRow.Cells[0].Value.ToString()),
+                        selectedRow.Cells[1].Value.ToString(),
+                        selectedRow.Cells[2].Value.ToString());
+
+                    companyForm.ShowDialog();
+                }
             }
         }
-
 
         private void btnGenerateReport_Click(object sender, EventArgs e)
         {

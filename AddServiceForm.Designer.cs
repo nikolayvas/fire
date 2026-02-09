@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
@@ -45,6 +46,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.txtTradeName = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // label2
@@ -100,6 +103,7 @@
             this.txtWeight.Name = "txtWeight";
             this.txtWeight.Size = new System.Drawing.Size(237, 22);
             this.txtWeight.TabIndex = 8;
+            this.txtWeight.Validating += new System.ComponentModel.CancelEventHandler(this.txtWeight_Validating);
             // 
             // label5
             // 
@@ -202,11 +206,15 @@
             this.label7.TabIndex = 19;
             this.label7.Text = "Стикер";
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // AddServiceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(486, 388);
+            this.ClientSize = new System.Drawing.Size(513, 386);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.txtTradeName);
             this.Controls.Add(this.label6);
@@ -232,6 +240,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Техническо обслужване";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AddServiceForm_KeyDown);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -255,5 +264,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtTradeName;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

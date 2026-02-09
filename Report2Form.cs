@@ -20,7 +20,7 @@ namespace FireWork
                 var diaryRows = DBAccess.GetReportData(protocolNo);
                 var doubleArray = diaryRows.Concat(diaryRows);
 
-                DocsGenerator.GenerateDiary(doubleArray.ToArray(), $"{Application.StartupPath}\\diary.dot");
+                DocsGenerator.GenerateDiary(doubleArray.ToArray(), $"{Application.StartupPath}\\Дневник.dot");
             });
         }
 

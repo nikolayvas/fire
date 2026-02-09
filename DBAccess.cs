@@ -82,12 +82,13 @@ namespace FireWork
             using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
             {
                 connection.Open();
-                string sql = "INSERT INTO COMPANY(Name, Address, Date) VALUES(@param0, @param1, strftime ('%s', 'now'))";
+                string sql = "INSERT INTO COMPANY(Name, Address, Date) VALUES(@param0, @param1, @param2)";
 
                 using (var cmd = new SQLiteCommand(sql, connection))
                 {
                     cmd.Parameters.Add("@param0", DbType.String, 50).Value = dto.Name;
                     cmd.Parameters.Add("@param1", DbType.String, 100).Value = dto.Address;
+                    cmd.Parameters.Add("@param2", DbType.Int64).Value = ((DateTimeOffset)dto.Date.ToUniversalTime()).ToUnixTimeSeconds();
                     cmd.CommandType = CommandType.Text;
                     cmd.ExecuteNonQuery();
                 }
@@ -112,6 +113,22 @@ namespace FireWork
             }
         }
 
+        public static void RemoveCompany(int companyId)
+        {
+            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
+            {
+                connection.Open();
+                string sql = "DELETE FROM COMPANY WHERE ID = @param0";
+
+                using (var cmd = new SQLiteCommand(sql, connection))
+                {
+                    cmd.Parameters.Add("@param0", DbType.Int64).Value = companyId;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         #endregion
 
         #region Statement
@@ -120,12 +137,13 @@ namespace FireWork
             using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
             {
                 connection.Open();
-                string sql = "INSERT INTO STATEMENT(NO, Company_id, Date) VALUES(@param0, @param1, strftime ('%s', 'now'))";
+                string sql = "INSERT INTO STATEMENT(NO, Company_id, Date) VALUES(@param0, @param1, @param2)";
 
                 using (var cmd = new SQLiteCommand(sql, connection))
                 {
                     cmd.Parameters.Add("@param0", DbType.Int64).Value = dto.No;
                     cmd.Parameters.Add("@param1", DbType.Int64).Value = companyId;
+                    cmd.Parameters.Add("@param2", DbType.Int64).Value = ((DateTimeOffset)dto.Date.ToUniversalTime()).ToUnixTimeSeconds();
                     cmd.CommandType = CommandType.Text;
                     cmd.ExecuteNonQuery();
                 }
@@ -225,14 +243,11 @@ namespace FireWork
             }
         }
 
-        public static void TwinStatement(int companyId, int statementId, int no)
+        public static void TwinStatement(int companyId, int statementId, StatementDto dto)
         {
             var services = LoadServices(statementId);
 
-            var newStatementId = AddNewStatement(companyId, new StatementDto()
-            {
-                No = no,
-            });
+            var newStatementId = AddNewStatement(companyId, dto);
 
             foreach (var item in services)
             {
@@ -405,7 +420,7 @@ namespace FireWork
 
                 var data = new List<DiaryDto>();
 
-                using (var command = new SQLiteCommand($"select datetime(Date,'unixepoch'), weight, name, STICKER_1, STICKER_2, STICKER_3, FOAM_NAME from SERVICE ser inner join STATEMENT st on ser.STATEMENT_ID = st.id where st.no > {no} order by st.no", connection))
+                using (var command = new SQLiteCommand($"select datetime(Date,'unixepoch'), weight, name, STICKER_1, STICKER_2, STICKER_3, FOAM_NAME from SERVICE ser inner join STATEMENT st on ser.STATEMENT_ID = st.id where st.no >= {no} order by st.no", connection))
                 {
                     using (var reader = command.ExecuteReader())
                     {
