@@ -20,7 +20,7 @@ namespace FireWork
                 var diaryRows = DBAccess.GetReportData(protocolNo);
                 var doubleArray = diaryRows.Concat(diaryRows);
 
-                DocsGenerator.GenerateDiary(doubleArray.ToArray(), $"{Application.StartupPath}\\Дневник.dot");
+                ReportsGenerator.ExcelReport(doubleArray.ToArray(), $"{Application.StartupPath}\\Дневник.xlsx");
             });
         }
 
@@ -29,6 +29,20 @@ namespace FireWork
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
+            }
+        }
+
+        private void txtNo_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            int no;
+            if (!int.TryParse(txtNo.Text, out no))
+            {
+                this.errorProvider1.SetError(txtNo, "Въведи номер");
+                e.Cancel = true;
+            }
+            else
+            {
+                this.errorProvider1.SetError(txtNo, "");
             }
         }
     }

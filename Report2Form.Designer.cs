@@ -28,9 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnGenerateReport = new System.Windows.Forms.Button();
             this.txtNo = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnGenerateReport
@@ -50,6 +53,7 @@
             this.txtNo.Name = "txtNo";
             this.txtNo.Size = new System.Drawing.Size(100, 22);
             this.txtNo.TabIndex = 4;
+            this.txtNo.Validating += new System.ComponentModel.CancelEventHandler(this.txtNo_Validating);
             // 
             // label1
             // 
@@ -59,6 +63,10 @@
             this.label1.Size = new System.Drawing.Size(146, 16);
             this.label1.TabIndex = 3;
             this.label1.Text = "От протокол с номер:";
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
             // 
             // Report2Form
             // 
@@ -76,6 +84,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Дневник за презареждане";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Report2Form_KeyDown);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -86,5 +95,6 @@
         private System.Windows.Forms.Button btnGenerateReport;
         private System.Windows.Forms.TextBox txtNo;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

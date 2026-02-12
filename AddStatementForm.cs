@@ -61,12 +61,12 @@ namespace FireWork
             }
         }
 
-        private void txtNo_TextChanged(object sender, EventArgs e)
+        private void txtNo_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            int no;
-            if (!int.TryParse(txtNo.Text, out no))
+            if (!int.TryParse(txtNo.Text, out int no) || no <= 0)
             {
-                this.errorProvider1.SetError(txtNo, "Въведи номер");
+                this.errorProvider1.SetError(txtNo, "Въведи естествено число!");
+                e.Cancel = true;
             }
             else
             {

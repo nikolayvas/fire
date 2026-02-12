@@ -1,21 +1,26 @@
-﻿using FireWork.Dto;
+﻿using ClosedXML.Excel;
+using FireWork.Dto;
 using Microsoft.Office.Interop.Word;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
+using Word = Microsoft.Office.Interop.Word;
 
 namespace FireWork
 {
-    public static class DocsGenerator
+    public static class ReportsGenerator
     {
         static object missing = Missing.Value;
 
         public static void GenerateStatemet(CompanyDto company, StatementDto statement, ServiceUIDto[] services, string docPath)
         {
-            Application wApp = new Application
+            Word.Application wApp = new Word.Application
             {
                 Visible = false
             };
-            Documents wDocs = wApp.Documents;
-            Document wDoc = wDocs.Open(docPath, ReadOnly: true, Visible: true);
+            Word.Documents wDocs = wApp.Documents;
+            Word.Document wDoc = wDocs.Open(docPath, ReadOnly: true, Visible: true);
 
             SearchAndReplace(wDoc, "_no_", statement.No.ToString());
             SearchAndReplace(wDoc, "_date_", statement.Date.ToString("dd.MM.yyyy"));
@@ -51,20 +56,64 @@ namespace FireWork
 
             wDoc.SaveAs(
                 FileName: filePath,
-                FileFormat: WdSaveFormat.wdFormatXMLDocument
+                FileFormat: Word.WdSaveFormat.wdFormatXMLDocument
             );
         }
 
+        public static void ExcelReport(DiaryDto[] rows, string docPath)
+        {
+            string filePath = Path.GetTempPath() + Guid.NewGuid().ToString() + ".xlsx";
+            using (var workbook = new XLWorkbook(docPath))
+            {
+                // 2. Access a specific worksheet
+                var worksheet = workbook.Worksheet(1);
+
+                var rowsStartIndex = 3;
+                var rowsCounter = 1;
+
+                foreach (var service in rows)
+                {
+                    worksheet.Cell(rowsStartIndex, 1).Value = rowsCounter;
+                    worksheet.Cell(rowsStartIndex, 2).Value = service.Date;
+                    worksheet.Cell(rowsStartIndex, 3).Value = service.UnitWeightType;
+                    worksheet.Cell(rowsStartIndex, 4).Value = service.UnitModel;
+                    worksheet.Cell(rowsStartIndex, 5).Value = "";
+                    worksheet.Cell(rowsStartIndex, 6).Value = service.ServiceType;
+                    worksheet.Cell(rowsStartIndex, 7).Value = service.Sticker;
+                    worksheet.Cell(rowsStartIndex, 8).Value = service.TradeNameFoam;
+                    worksheet.Cell(rowsStartIndex, 9).Value = service.DataNext;
+
+                    rowsCounter++;
+                    rowsStartIndex++;
+                }
+
+                worksheet.Range(1, 1, rowsStartIndex, 10).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+
+                // Apply to all internal grid lines (horizontal and vertical)
+                worksheet.Range(1, 1, rowsStartIndex, 10).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
+                // 5. Save as a new file to keep the template intact
+                workbook.SaveAs(filePath);
+            }
+
+            FileInfo fi = new FileInfo(filePath);
+            if (fi.Exists)
+            {
+                System.Diagnostics.Process.Start(filePath);
+            }
+        }
+
+        /*
         public static void GenerateDiary(DiaryDto[] rows, string docPath)
         {
-            Application wApp = new Application
+            Word.Application wApp = new Word.Application
             {
                 ScreenUpdating = false,
                 Visible = false
             };
 
-            Documents wDocs = wApp.Documents;
-            Document wDoc = wDocs.Open(docPath, ReadOnly: true, Visible: false);
+            Word.Documents wDocs = wApp.Documents;
+            Word.Document wDoc = wDocs.Open(docPath, ReadOnly: true, Visible: false);
 
             var table = wDoc.Tables[1];
 
@@ -85,7 +134,7 @@ namespace FireWork
 
                 table.Rows[rowsStartIndex].Cells[2].Range.Text = service.Date;
 
-                table.Rows[rowsStartIndex].Cells[3].Range.Text = service.UnitModel;
+                table.Rows[rowsStartIndex].Cells[3].Range.Text = service.UnitWeightType;
 
                 table.Rows[rowsStartIndex].Cells[4].Range.Text = service.UnitModel;
 
@@ -107,10 +156,11 @@ namespace FireWork
             wApp.Visible = true;
             wApp.Activate();
         }
+        */
 
-        private static void SearchAndReplace(Document doc, string find, string replace)
+        private static void SearchAndReplace(Word.Document doc, string find, string replace)
         {
-            foreach (Range tmpRange in doc.StoryRanges)
+            foreach (Word.Range tmpRange in doc.StoryRanges)
             {
                 // Set the text to find and replace
                 tmpRange.Find.Text = find;
@@ -119,11 +169,11 @@ namespace FireWork
                 // Set the Find.Wrap property to continue (so it doesn't
                 // prompt the user or stop when it hits the end of
                 // the section)
-                tmpRange.Find.Wrap = WdFindWrap.wdFindContinue;
+                tmpRange.Find.Wrap = Word.WdFindWrap.wdFindContinue;
 
                 // Declare an object to pass as a parameter that sets
                 // the Replace parameter to the "wdReplaceAll" enum
-                object replaceAll = WdReplace.wdReplaceAll;
+                object replaceAll = Word.WdReplace.wdReplaceAll;
 
                 // Execute the Find and Replace -- notice that the
                 // 11th parameter is the "replaceAll" enum object

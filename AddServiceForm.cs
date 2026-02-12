@@ -111,10 +111,10 @@ namespace FireWork
 
         private void txtWeight_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            decimal weight;
-            if (!decimal.TryParse(txtWeight.Text, out weight))
+            if (!decimal.TryParse(txtWeight.Text, out decimal weight))
             {
                 this.errorProvider1.SetError(txtWeight, "Въведи число");
+                e.Cancel = true;
             }
             else
             {

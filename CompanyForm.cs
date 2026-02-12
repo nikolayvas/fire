@@ -153,19 +153,7 @@ namespace FireWork
                 var selectedRow = senderGrid.Rows[e.RowIndex];
                 var serviceId = int.Parse(selectedRow.Cells[0].Value.ToString());
 
-
-                if(e.ColumnIndex == senderGrid.ColumnCount - 1)
-                {
-                    var service = DBAccess.LoadService(serviceId);
-                    AddServiceForm frm = new AddServiceForm(service);
-                    var dialogResult = frm.ShowDialog();
-
-                    if(dialogResult == DialogResult.OK)
-                    {
-                        LoadServicesData();
-                    }
-                }
-                else
+                if(e.ColumnIndex == senderGrid.ColumnCount - 1 )
                 {
                     var confirmResult = MessageBox.Show("Сигурен ли си?",
                                          "Изтриване на запис!",
@@ -174,6 +162,17 @@ namespace FireWork
                     if (confirmResult == DialogResult.Yes)
                     {
                         DBAccess.RemoveService(serviceId);
+                        LoadServicesData();
+                    }
+                }
+                else
+                {
+                    var service = DBAccess.LoadService(serviceId);
+                    AddServiceForm frm = new AddServiceForm(service);
+                    var dialogResult = frm.ShowDialog();
+
+                    if (dialogResult == DialogResult.OK)
+                    {
                         LoadServicesData();
                     }
                 }
@@ -241,7 +240,7 @@ namespace FireWork
             var statement = DBAccess.LoadStatement(SelectedStatementId);
             var services = DBAccess.LoadServices(SelectedStatementId);
 
-            DocsGenerator.GenerateStatemet(company, statement, ConvertServices(services), $"{Application.StartupPath}\\Протокол.dot");
+            ReportsGenerator.GenerateStatemet(company, statement, ConvertServices(services), $"{Application.StartupPath}\\Протокол.dot");
         }
 
         private void CompanyForm_KeyDown(object sender, KeyEventArgs e)

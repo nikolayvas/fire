@@ -53,7 +53,7 @@
             this.txtNo.Name = "txtNo";
             this.txtNo.Size = new System.Drawing.Size(100, 22);
             this.txtNo.TabIndex = 1;
-            this.txtNo.TextChanged += new System.EventHandler(this.txtNo_TextChanged);
+            this.txtNo.Validating += new System.ComponentModel.CancelEventHandler(this.txtNo_Validating);
             // 
             // btnAdd
             // 
