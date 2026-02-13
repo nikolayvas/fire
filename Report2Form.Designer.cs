@@ -30,9 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             this.btnGenerateReport = new System.Windows.Forms.Button();
-            this.txtNo = new System.Windows.Forms.TextBox();
+            this.txtFromNo = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtToNo = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -47,13 +49,13 @@
             this.btnGenerateReport.UseVisualStyleBackColor = true;
             this.btnGenerateReport.Click += new System.EventHandler(this.btnGenerateReport_Click);
             // 
-            // txtNo
+            // txtFromNo
             // 
-            this.txtNo.Location = new System.Drawing.Point(172, 19);
-            this.txtNo.Name = "txtNo";
-            this.txtNo.Size = new System.Drawing.Size(100, 22);
-            this.txtNo.TabIndex = 4;
-            this.txtNo.Validating += new System.ComponentModel.CancelEventHandler(this.txtNo_Validating);
+            this.txtFromNo.Location = new System.Drawing.Point(172, 19);
+            this.txtFromNo.Name = "txtFromNo";
+            this.txtFromNo.Size = new System.Drawing.Size(100, 22);
+            this.txtFromNo.TabIndex = 4;
+            this.txtFromNo.Validating += new System.ComponentModel.CancelEventHandler(this.txtNo_Validating);
             // 
             // label1
             // 
@@ -68,13 +70,32 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(315, 22);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(70, 16);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "до номер:";
+            // 
+            // txtToNo
+            // 
+            this.txtToNo.Location = new System.Drawing.Point(392, 19);
+            this.txtToNo.Name = "txtToNo";
+            this.txtToNo.Size = new System.Drawing.Size(100, 22);
+            this.txtToNo.TabIndex = 7;
+            this.txtToNo.Validating += new System.ComponentModel.CancelEventHandler(this.txtToNo_Validating);
+            // 
             // Report2Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(680, 118);
+            this.Controls.Add(this.txtToNo);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.btnGenerateReport);
-            this.Controls.Add(this.txtNo);
+            this.Controls.Add(this.txtFromNo);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
@@ -93,8 +114,10 @@
         #endregion
 
         private System.Windows.Forms.Button btnGenerateReport;
-        private System.Windows.Forms.TextBox txtNo;
+        private System.Windows.Forms.TextBox txtFromNo;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtToNo;
     }
 }

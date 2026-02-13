@@ -412,7 +412,7 @@ namespace FireWork
 
         #region Report
 
-        public static List<DiaryDto> GetReportData(int no)
+        public static List<DiaryDto> GetReportData(int fromNo, int toNo)
         {
             using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
             {
@@ -420,7 +420,7 @@ namespace FireWork
 
                 var data = new List<DiaryDto>();
 
-                using (var command = new SQLiteCommand($"select datetime(Date,'unixepoch'), weight, name, STICKER_1, STICKER_2, STICKER_3, FOAM_NAME from SERVICE ser inner join STATEMENT st on ser.STATEMENT_ID = st.id where st.no >= {no} order by st.no", connection))
+                using (var command = new SQLiteCommand($"select datetime(Date,'unixepoch'), weight, name, STICKER_1, STICKER_2, STICKER_3, FOAM_NAME from SERVICE ser inner join STATEMENT st on ser.STATEMENT_ID = st.id where st.No >= {fromNo} and st.No <= {toNo} order by st.No", connection))
                 {
                     using (var reader = command.ExecuteReader())
                     {

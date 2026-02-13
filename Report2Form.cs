@@ -10,14 +10,16 @@ namespace FireWork
         public Report2Form()
         {
             InitializeComponent();
+            txtToNo.Text = DBAccess.LastStatementNo().ToString();
         }
 
         private void btnGenerateReport_Click(object sender, EventArgs e)
         {
             ExceptionWrapper.Wrap(() =>
             {
-                var protocolNo = int.Parse(txtNo.Text);
-                var diaryRows = DBAccess.GetReportData(protocolNo);
+                var protocolFromNo = int.Parse(txtFromNo.Text);
+                var protocolToNo = int.Parse(txtToNo.Text);
+                var diaryRows = DBAccess.GetReportData(protocolFromNo, protocolToNo);
                 var doubleArray = diaryRows.Concat(diaryRows);
 
                 ReportsGenerator.ExcelReport(doubleArray.ToArray(), $"{Application.StartupPath}\\Дневник.xlsx");
@@ -35,14 +37,28 @@ namespace FireWork
         private void txtNo_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
             int no;
-            if (!int.TryParse(txtNo.Text, out no))
+            if (!int.TryParse(txtFromNo.Text, out no))
             {
-                this.errorProvider1.SetError(txtNo, "Въведи номер");
+                this.errorProvider1.SetError(txtFromNo, "Въведи номер");
                 e.Cancel = true;
             }
             else
             {
-                this.errorProvider1.SetError(txtNo, "");
+                this.errorProvider1.SetError(txtFromNo, "");
+            }
+        }
+
+        private void txtToNo_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            int no;
+            if (!int.TryParse(txtToNo.Text, out no))
+            {
+                this.errorProvider1.SetError(txtToNo, "Въведи номер");
+                e.Cancel = true;
+            }
+            else
+            {
+                this.errorProvider1.SetError(txtToNo, "");
             }
         }
     }
