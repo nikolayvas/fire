@@ -106,7 +106,7 @@
             // chkStick2
             // 
             this.chkStick2.AutoSize = true;
-            this.chkStick2.Location = new System.Drawing.Point(17, 206);
+            this.chkStick2.Location = new System.Drawing.Point(18, 206);
             this.chkStick2.Name = "chkStick2";
             this.chkStick2.Size = new System.Drawing.Size(128, 20);
             this.chkStick2.TabIndex = 11;

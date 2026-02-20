@@ -169,7 +169,7 @@ namespace FireWork
                 else
                 {
                     var service = DBAccess.LoadService(serviceId);
-                    AddServiceForm frm = new AddServiceForm(service);
+                    AddServiceForm frm = new AddServiceForm(SelectedStatementId, service);
                     var dialogResult = frm.ShowDialog();
 
                     if (dialogResult == DialogResult.OK)
@@ -262,20 +262,22 @@ namespace FireWork
 
             var service = services.FirstOrDefault(x => x.Id == serviceId);
 
-            if (service != null)
+            AddServiceForm addForm = new AddServiceForm(SelectedStatementId, service, true);
+            addForm.ShowDialog();
+
+            if (addForm.DialogResult == DialogResult.OK)
             {
-                DBAccess.AddNewService(SelectedStatementId, service);
                 LoadServicesData();
             }
-            else
-            {
-                throw new Exception("Something is wrong!");
-            }
-            
         }
 
         private void dataGridView2_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
+            if(e.ColumnIndex > 7)
+            {
+                return;
+            }
+
             if (!string.IsNullOrEmpty(textBox1.Text) && e.Value != null)
             {
                 if (e.Value.ToString().ToLower().Contains(textBox1.Text.ToLower()))
@@ -289,6 +291,11 @@ namespace FireWork
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             dataGridView2.Invalidate(); ;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = "";
         }
     }
 }

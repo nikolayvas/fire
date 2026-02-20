@@ -10,7 +10,7 @@ namespace FireWork
 
         private int StatementId { get; set; }
 
-        private bool AddNew = true;
+        private readonly bool AddNew = true;
 
         public AddServiceForm(int statementId)
         {
@@ -18,8 +18,9 @@ namespace FireWork
             StatementId = statementId;
         }
 
-        public AddServiceForm(ServiceDto service)
+        public AddServiceForm(int statementId, ServiceDto service, bool addNew = false)
         {
+            StatementId = statementId;
             this.service = service;
             InitializeComponent();
 
@@ -47,7 +48,7 @@ namespace FireWork
             }
 
             this.button1.Text = "Запази";
-            AddNew = false;
+            AddNew = addNew;
         }
 
         private void chkStick1_CheckedChanged(object sender, EventArgs e)

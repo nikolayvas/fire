@@ -43,6 +43,7 @@ namespace FireWork
             this.btnGenerateReport = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -143,7 +144,7 @@ namespace FireWork
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(460, 684);
+            this.label1.Location = new System.Drawing.Point(461, 670);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(203, 16);
             this.label1.TabIndex = 3;
@@ -152,7 +153,7 @@ namespace FireWork
             // txtProtocolNo
             // 
             this.txtProtocolNo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtProtocolNo.Location = new System.Drawing.Point(670, 684);
+            this.txtProtocolNo.Location = new System.Drawing.Point(464, 689);
             this.txtProtocolNo.Name = "txtProtocolNo";
             this.txtProtocolNo.ReadOnly = true;
             this.txtProtocolNo.Size = new System.Drawing.Size(100, 22);
@@ -173,7 +174,7 @@ namespace FireWork
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(163, 684);
+            this.label2.Location = new System.Drawing.Point(178, 670);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(51, 16);
             this.label2.TabIndex = 6;
@@ -182,15 +183,27 @@ namespace FireWork
             // textBox1
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBox1.Location = new System.Drawing.Point(221, 684);
+            this.textBox1.Location = new System.Drawing.Point(181, 689);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(176, 22);
             this.textBox1.TabIndex = 7;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button1.Location = new System.Drawing.Point(363, 689);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(23, 22);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "Х";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Main
             // 
             this.ClientSize = new System.Drawing.Size(1335, 717);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnGenerateReport);
@@ -221,5 +234,6 @@ namespace FireWork
         private System.Windows.Forms.DataGridViewButtonColumn Column1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button button1;
     }
 }
