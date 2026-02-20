@@ -2,6 +2,7 @@
 using Library.Forms;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -131,7 +132,7 @@ namespace FireWork
                     Id = x.Id,
                     Name = x.Name,
                     Category = "Категория " + x.Category,
-                    Category2 = x.Category == 1 ? "ВОДА" : (x.Category == 2 ? "ПРАХ" : "CO2"),
+                    Category2 = x.Category == 1 ? "ВОДА" : (x.Category == 5 ? "CO2" : "ПРАХ"),
                     FoamName = x.FoamName,
                     Weight = x.Weight,
                     ServiceType = serviceType,
@@ -271,6 +272,23 @@ namespace FireWork
                 throw new Exception("Something is wrong!");
             }
             
+        }
+
+        private void dataGridView2_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox1.Text) && e.Value != null)
+            {
+                if (e.Value.ToString().ToLower().Contains(textBox1.Text.ToLower()))
+                {
+                    e.CellStyle.BackColor = Color.Yellow;
+                    e.CellStyle.ForeColor = Color.Black;
+                }
+            }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            dataGridView2.Invalidate(); ;
         }
     }
 }

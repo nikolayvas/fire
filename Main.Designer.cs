@@ -31,16 +31,18 @@ namespace FireWork
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.btnAddClient = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtProtocolNo = new System.Windows.Forms.TextBox();
-            this.btnGenerateReport = new System.Windows.Forms.Button();
             this.cId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.address = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cDoc = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.btnAddClient = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtProtocolNo = new System.Windows.Forms.TextBox();
+            this.btnGenerateReport = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,47 +70,6 @@ namespace FireWork
             this.dataGridView1.Size = new System.Drawing.Size(1329, 661);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // btnAddClient
-            // 
-            this.btnAddClient.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAddClient.Location = new System.Drawing.Point(3, 670);
-            this.btnAddClient.Name = "btnAddClient";
-            this.btnAddClient.Size = new System.Drawing.Size(144, 44);
-            this.btnAddClient.TabIndex = 2;
-            this.btnAddClient.Text = "Добави нов клиент";
-            this.btnAddClient.UseVisualStyleBackColor = true;
-            this.btnAddClient.Click += new System.EventHandler(this.btnAddNewClient_Click);
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(460, 684);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(203, 16);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Последен номер на протокол:";
-            // 
-            // txtProtocolNo
-            // 
-            this.txtProtocolNo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtProtocolNo.Location = new System.Drawing.Point(670, 684);
-            this.txtProtocolNo.Name = "txtProtocolNo";
-            this.txtProtocolNo.ReadOnly = true;
-            this.txtProtocolNo.Size = new System.Drawing.Size(100, 22);
-            this.txtProtocolNo.TabIndex = 4;
-            // 
-            // btnGenerateReport
-            // 
-            this.btnGenerateReport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnGenerateReport.Location = new System.Drawing.Point(1188, 670);
-            this.btnGenerateReport.Name = "btnGenerateReport";
-            this.btnGenerateReport.Size = new System.Drawing.Size(144, 44);
-            this.btnGenerateReport.TabIndex = 5;
-            this.btnGenerateReport.Text = "Дневник";
-            this.btnGenerateReport.UseVisualStyleBackColor = true;
-            this.btnGenerateReport.Click += new System.EventHandler(this.btnGenerateReport_Click);
             // 
             // cId
             // 
@@ -167,9 +128,71 @@ namespace FireWork
             this.Column1.UseColumnTextForButtonValue = true;
             this.Column1.Width = 125;
             // 
+            // btnAddClient
+            // 
+            this.btnAddClient.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnAddClient.Location = new System.Drawing.Point(3, 670);
+            this.btnAddClient.Name = "btnAddClient";
+            this.btnAddClient.Size = new System.Drawing.Size(144, 44);
+            this.btnAddClient.TabIndex = 2;
+            this.btnAddClient.Text = "Добави нов клиент";
+            this.btnAddClient.UseVisualStyleBackColor = true;
+            this.btnAddClient.Click += new System.EventHandler(this.btnAddNewClient_Click);
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(460, 684);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(203, 16);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Последен номер на протокол:";
+            // 
+            // txtProtocolNo
+            // 
+            this.txtProtocolNo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.txtProtocolNo.Location = new System.Drawing.Point(670, 684);
+            this.txtProtocolNo.Name = "txtProtocolNo";
+            this.txtProtocolNo.ReadOnly = true;
+            this.txtProtocolNo.Size = new System.Drawing.Size(100, 22);
+            this.txtProtocolNo.TabIndex = 4;
+            // 
+            // btnGenerateReport
+            // 
+            this.btnGenerateReport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnGenerateReport.Location = new System.Drawing.Point(1188, 670);
+            this.btnGenerateReport.Name = "btnGenerateReport";
+            this.btnGenerateReport.Size = new System.Drawing.Size(144, 44);
+            this.btnGenerateReport.TabIndex = 5;
+            this.btnGenerateReport.Text = "Дневник";
+            this.btnGenerateReport.UseVisualStyleBackColor = true;
+            this.btnGenerateReport.Click += new System.EventHandler(this.btnGenerateReport_Click);
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(163, 684);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(51, 16);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Търси:";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.textBox1.Location = new System.Drawing.Point(221, 684);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(176, 22);
+            this.textBox1.TabIndex = 7;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
             // Main
             // 
             this.ClientSize = new System.Drawing.Size(1335, 717);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.btnGenerateReport);
             this.Controls.Add(this.txtProtocolNo);
             this.Controls.Add(this.label1);
@@ -196,5 +219,7 @@ namespace FireWork
         private System.Windows.Forms.DataGridViewTextBoxColumn Date;
         private System.Windows.Forms.DataGridViewButtonColumn cDoc;
         private System.Windows.Forms.DataGridViewButtonColumn Column1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

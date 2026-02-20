@@ -13,7 +13,7 @@ namespace FireWork
         #region Company
         public static List<CompanyDto> LoadCompanies()
         {
-            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
+            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db; Foreign Keys=True;"))
             {
                 connection.Open();
 
@@ -46,7 +46,7 @@ namespace FireWork
 
         public static CompanyDto LoadCompany(int id)
         {
-            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
+            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db; Foreign Keys=True;"))
             {
                 connection.Open();
 
@@ -79,7 +79,7 @@ namespace FireWork
 
         public static void AddNewCompany(CompanyDto dto)
         {
-            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
+            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db; Foreign Keys=True;"))
             {
                 connection.Open();
                 string sql = "INSERT INTO COMPANY(Name, Address, Date) VALUES(@param0, @param1, @param2)";
@@ -97,7 +97,7 @@ namespace FireWork
 
         public static void UpdateCompany(CompanyDto dto)
         {
-            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
+            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db; Foreign Keys=True;"))
             {
                 connection.Open();
                 string sql = "UPDATE COMPANY SET Name = @param0, Address = @param1 WHERE id = @param2";
@@ -115,7 +115,7 @@ namespace FireWork
 
         public static void RemoveCompany(int companyId)
         {
-            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
+            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db; Foreign Keys=True;"))
             {
                 connection.Open();
                 string sql = "DELETE FROM COMPANY WHERE ID = @param0";
@@ -134,7 +134,7 @@ namespace FireWork
         #region Statement
         public static long AddNewStatement(int companyId, StatementDto dto)
         {
-            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
+            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db; Foreign Keys=True;"))
             {
                 connection.Open();
                 string sql = "INSERT INTO STATEMENT(NO, Company_id, Date) VALUES(@param0, @param1, @param2)";
@@ -156,7 +156,7 @@ namespace FireWork
 
         public static List<StatementDto> LoadStatements(int companyId)
         {
-            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
+            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db; Foreign Keys=True;"))
             {
                 connection.Open();
 
@@ -187,7 +187,7 @@ namespace FireWork
 
         public static StatementDto LoadStatement(int statementId)
         {
-            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
+            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db; Foreign Keys=True;"))
             {
                 connection.Open();
 
@@ -218,7 +218,7 @@ namespace FireWork
 
         public static int LastStatementNo()
         {
-            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
+            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db; Foreign Keys=True;"))
             {
                 connection.Open();
 
@@ -232,8 +232,11 @@ namespace FireWork
                         {
                             while (reader.Read())
                             {
+                                if (reader.IsDBNull(0))
+                                {
+                                    return 0;
+                                }
                                 return reader.GetInt32(0);
-
                             }
                         }
                     }
@@ -257,7 +260,7 @@ namespace FireWork
 
         public static void RemoveStatement(int statementId)
         {
-            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
+            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db; Foreign Keys=True;"))
             {
                 connection.Open();
                 string sql = "DELETE FROM STATEMENT WHERE id = @param0";
@@ -276,7 +279,7 @@ namespace FireWork
         #region Service
         public static void AddNewService(long statementId, ServiceDto dto)
         {
-            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
+            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db; Foreign Keys=True;"))
             {
                 connection.Open();
                 string sql = "INSERT INTO SERVICE(Name, Category, Foam_Name, Sticker_1, Sticker_2, Sticker_3, Weight, Statement_id) VALUES(@param1, @param2, @param3, @param4, @param5, @param6, @param7, @param8)";
@@ -299,7 +302,7 @@ namespace FireWork
 
         public static List<ServiceDto> LoadServices(int statementId)
         {
-            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
+            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db; Foreign Keys=True;"))
             {
                 connection.Open();
 
@@ -335,7 +338,7 @@ namespace FireWork
 
         public static void RemoveService(int serviceId)
         {
-            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
+            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db; Foreign Keys=True;"))
             {
                 connection.Open();
                 string sql = "DELETE FROM SERVICE WHERE id = @param0";
@@ -351,7 +354,7 @@ namespace FireWork
 
         public static ServiceDto LoadService(int serviceId)
         {
-            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
+            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db; Foreign Keys=True;"))
             {
                 connection.Open();
 
@@ -387,7 +390,7 @@ namespace FireWork
 
         public static void UpdateService(ServiceDto dto)
         {
-            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
+            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db; Foreign Keys=True;"))
             {
                 connection.Open();
                 string sql = "UPDATE SERVICE SET Name = @param0, Category = @param1, Foam_Name = @param2, Weight = @param3, Sticker_1 = @param4, Sticker_2 = @param5, Sticker_3 = @param6  WHERE id = @param7";
@@ -414,7 +417,7 @@ namespace FireWork
 
         public static List<DiaryDto> GetReportData(int fromNo, int toNo)
         {
-            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db"))
+            using (var connection = new SQLiteConnection($"Data Source={Application.StartupPath}\\testDb.db; Foreign Keys=True;"))
             {
                 connection.Open();
 

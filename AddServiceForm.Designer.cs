@@ -32,8 +32,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.txtWeight = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.chkStick1 = new System.Windows.Forms.CheckBox();
@@ -47,13 +45,15 @@
             this.txtTradeName = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.cmbCategory = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 19);
+            this.label2.Location = new System.Drawing.Point(15, 15);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(113, 16);
             this.label2.TabIndex = 1;
@@ -62,7 +62,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(11, 133);
+            this.label4.Location = new System.Drawing.Point(15, 104);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(41, 16);
             this.label4.TabIndex = 3;
@@ -70,36 +70,14 @@
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(229, 13);
+            this.txtName.Location = new System.Drawing.Point(233, 12);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(237, 22);
             this.txtName.TabIndex = 5;
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 59);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(192, 16);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Пожарогасително вещество";
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "CO2",
-            "ПРАХ",
-            "ВОДА"});
-            this.comboBox1.Location = new System.Drawing.Point(229, 56);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(237, 24);
-            this.comboBox1.TabIndex = 7;
-            // 
             // txtWeight
             // 
-            this.txtWeight.Location = new System.Drawing.Point(229, 127);
+            this.txtWeight.Location = new System.Drawing.Point(233, 101);
             this.txtWeight.Name = "txtWeight";
             this.txtWeight.Size = new System.Drawing.Size(237, 22);
             this.txtWeight.TabIndex = 8;
@@ -108,7 +86,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 198);
+            this.label5.Location = new System.Drawing.Point(15, 150);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(122, 16);
             this.label5.TabIndex = 9;
@@ -117,7 +95,7 @@
             // chkStick1
             // 
             this.chkStick1.AutoSize = true;
-            this.chkStick1.Location = new System.Drawing.Point(16, 235);
+            this.chkStick1.Location = new System.Drawing.Point(18, 178);
             this.chkStick1.Name = "chkStick1";
             this.chkStick1.Size = new System.Drawing.Size(189, 20);
             this.chkStick1.TabIndex = 10;
@@ -128,7 +106,7 @@
             // chkStick2
             // 
             this.chkStick2.AutoSize = true;
-            this.chkStick2.Location = new System.Drawing.Point(15, 263);
+            this.chkStick2.Location = new System.Drawing.Point(17, 206);
             this.chkStick2.Name = "chkStick2";
             this.chkStick2.Size = new System.Drawing.Size(128, 20);
             this.chkStick2.TabIndex = 11;
@@ -139,7 +117,7 @@
             // chkStick3
             // 
             this.chkStick3.AutoSize = true;
-            this.chkStick3.Location = new System.Drawing.Point(15, 291);
+            this.chkStick3.Location = new System.Drawing.Point(18, 234);
             this.chkStick3.Name = "chkStick3";
             this.chkStick3.Size = new System.Drawing.Size(204, 20);
             this.chkStick3.TabIndex = 12;
@@ -149,7 +127,7 @@
             // 
             // txtStick3
             // 
-            this.txtStick3.Location = new System.Drawing.Point(230, 289);
+            this.txtStick3.Location = new System.Drawing.Point(233, 232);
             this.txtStick3.Name = "txtStick3";
             this.txtStick3.Size = new System.Drawing.Size(237, 22);
             this.txtStick3.TabIndex = 13;
@@ -157,7 +135,7 @@
             // 
             // txtStick2
             // 
-            this.txtStick2.Location = new System.Drawing.Point(230, 261);
+            this.txtStick2.Location = new System.Drawing.Point(233, 204);
             this.txtStick2.Name = "txtStick2";
             this.txtStick2.Size = new System.Drawing.Size(237, 22);
             this.txtStick2.TabIndex = 14;
@@ -165,7 +143,7 @@
             // 
             // txtStick1
             // 
-            this.txtStick1.Location = new System.Drawing.Point(230, 233);
+            this.txtStick1.Location = new System.Drawing.Point(233, 176);
             this.txtStick1.Name = "txtStick1";
             this.txtStick1.Size = new System.Drawing.Size(237, 22);
             this.txtStick1.TabIndex = 15;
@@ -173,7 +151,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(13, 339);
+            this.button1.Location = new System.Drawing.Point(15, 282);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(113, 36);
             this.button1.TabIndex = 16;
@@ -184,7 +162,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(10, 89);
+            this.label6.Location = new System.Drawing.Point(15, 73);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(177, 16);
             this.label6.TabIndex = 17;
@@ -192,7 +170,7 @@
             // 
             // txtTradeName
             // 
-            this.txtTradeName.Location = new System.Drawing.Point(229, 86);
+            this.txtTradeName.Location = new System.Drawing.Point(233, 70);
             this.txtTradeName.Name = "txtTradeName";
             this.txtTradeName.Size = new System.Drawing.Size(237, 22);
             this.txtTradeName.TabIndex = 18;
@@ -200,7 +178,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(227, 198);
+            this.label7.Location = new System.Drawing.Point(230, 150);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(54, 16);
             this.label7.TabIndex = 19;
@@ -210,11 +188,36 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // cmbCategory
+            // 
+            this.cmbCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCategory.FormattingEnabled = true;
+            this.cmbCategory.Items.AddRange(new object[] {
+            "Категория 1 ( ВОДА )",
+            "Категория 2 ( ПРАХ )",
+            "Категория 4 ( ПРАХ )",
+            "Категория 5 ( CO2 )"});
+            this.cmbCategory.Location = new System.Drawing.Point(233, 40);
+            this.cmbCategory.Name = "cmbCategory";
+            this.cmbCategory.Size = new System.Drawing.Size(237, 24);
+            this.cmbCategory.TabIndex = 21;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(15, 43);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(75, 16);
+            this.label1.TabIndex = 20;
+            this.label1.Text = "Категория";
+            // 
             // AddServiceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(513, 386);
+            this.ClientSize = new System.Drawing.Size(513, 339);
+            this.Controls.Add(this.cmbCategory);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.txtTradeName);
             this.Controls.Add(this.label6);
@@ -227,8 +230,6 @@
             this.Controls.Add(this.chkStick1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtWeight);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
@@ -250,8 +251,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtName;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.TextBox txtWeight;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox chkStick1;
@@ -265,5 +264,7 @@
         private System.Windows.Forms.TextBox txtTradeName;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.ComboBox cmbCategory;
+        private System.Windows.Forms.Label label1;
     }
 }

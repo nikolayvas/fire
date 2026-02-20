@@ -42,7 +42,7 @@ namespace FireWork
                 table.Rows[rowsStartIndex].Cells[5].Range.Text = service.Category2;
                 table.Rows[rowsStartIndex].Cells[6].Range.Text = service.FoamName;
                 table.Rows[rowsStartIndex].Cells[7].Range.Text = service.ServiceType;
-                table.Rows[rowsStartIndex].Cells[8].Range.Text = statement.Date.ToString("dd.MM.yyyy");
+                table.Rows[rowsStartIndex].Cells[8].Range.Text = statement.Date.AddYears(1).AddDays(-1).ToString("dd.MM.yyyy");
                 table.Rows[rowsStartIndex].Cells[9].Range.Text = "инж.Андрей Занев";
                 table.Rows[rowsStartIndex].Cells[10].Range.Text = "";
                 table.Rows[rowsStartIndex].Cells[11].Range.Text = service.Sticker;

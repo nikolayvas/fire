@@ -1,6 +1,7 @@
 ﻿using FireWork.Dto;
 using Library.Forms;
 using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace FireWork
@@ -18,9 +19,14 @@ namespace FireWork
             LoadProtocolNo();
         }
 
-        public void LoadData()
+        public void LoadData(string filter = "")
         {
             var data = DBAccess.LoadCompanies();
+
+            if(!string.IsNullOrEmpty(filter))
+            {
+                data = data.Where(x => x.Name.ToLower().Contains(filter.ToLower())).ToList();
+            }
 
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.DataSource = new SortableBindingList<CompanyDto>(data);
@@ -89,6 +95,11 @@ namespace FireWork
         {
             Report2Form reportForm = new Report2Form();
             reportForm.ShowDialog();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            this.LoadData(((TextBox)sender).Text);
         }
     }
 }

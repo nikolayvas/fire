@@ -30,7 +30,7 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Update="testDb.db">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Дневник.dot">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

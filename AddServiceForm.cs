@@ -26,7 +26,7 @@ namespace FireWork
             this.txtName.Text = service.Name;
             this.txtTradeName.Text = service.FoamName;
             this.txtWeight.Text = service.Weight.ToString();
-            this.comboBox1.Text = service.Category == 1 ? "ВОДА" : (service.Category == 2 ? "ПРАХ" : "CO2");
+            this.cmbCategory.SelectedIndex = service.Category < 3 ? service.Category - 1 : service.Category - 2;
 
             if(!string.IsNullOrEmpty(service.Sticker1))
             {
@@ -72,7 +72,7 @@ namespace FireWork
                 var dto = new ServiceDto()
                 {
                     Name = txtName.Text,
-                    Category = comboBox1.Text == "CO2" ? 5 : (comboBox1.Text == "ВОДА" ? 1 : 2),
+                    Category = this.cmbCategory.SelectedIndex < 2 ? this.cmbCategory.SelectedIndex + 1 : this.cmbCategory.SelectedIndex + 2,
                     FoamName = txtTradeName.Text,
                     Weight = txtWeight.Text == "" ? 0 : decimal.Parse(txtWeight.Text),
                     Sticker1 = txtStick1.Visible ? txtStick1.Text : null,

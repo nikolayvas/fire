@@ -20,9 +20,8 @@ namespace FireWork
                 var protocolFromNo = int.Parse(txtFromNo.Text);
                 var protocolToNo = int.Parse(txtToNo.Text);
                 var diaryRows = DBAccess.GetReportData(protocolFromNo, protocolToNo);
-                var doubleArray = diaryRows.Concat(diaryRows);
 
-                ReportsGenerator.ExcelReport(doubleArray.ToArray(), $"{Application.StartupPath}\\Дневник.xlsx");
+                ReportsGenerator.ExcelReport(diaryRows.ToArray(), $"{Application.StartupPath}\\Дневник.xlsx");
             });
         }
 

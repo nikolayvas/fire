@@ -38,14 +38,14 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.btnTwin = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnStatementNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnStatementDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgw1Delete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.label5 = new System.Windows.Forms.Label();
+            this.btnClone = new System.Windows.Forms.Button();
             this.btnPrint1 = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.btnAddService = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtAddress = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.btnUpdateCompany = new System.Windows.Forms.Button();
-            this.btnClone = new System.Windows.Forms.Button();
             this.grd2Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnServiceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnServiceCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -56,10 +56,12 @@
             this.columnServiceStickers = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.grd2EditColumn = new System.Windows.Forms.DataGridViewButtonColumn();
             this.delete = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnStatementNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnStatementDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgw1Delete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.btnAddService = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtAddress = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.btnUpdateCompany = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -121,6 +123,8 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.textBox1);
+            this.splitContainer1.Panel2.Controls.Add(this.label5);
             this.splitContainer1.Panel2.Controls.Add(this.btnClone);
             this.splitContainer1.Panel2.Controls.Add(this.btnPrint1);
             this.splitContainer1.Panel2.Controls.Add(this.dataGridView2);
@@ -165,6 +169,67 @@
             this.dataGridView1.TabIndex = 5;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
+            // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.Frozen = true;
+            this.Id.HeaderText = "Id";
+            this.Id.MinimumWidth = 6;
+            this.Id.Name = "Id";
+            this.Id.Visible = false;
+            this.Id.Width = 125;
+            // 
+            // columnStatementNo
+            // 
+            this.columnStatementNo.DataPropertyName = "No";
+            this.columnStatementNo.Frozen = true;
+            this.columnStatementNo.HeaderText = "Номер";
+            this.columnStatementNo.MinimumWidth = 6;
+            this.columnStatementNo.Name = "columnStatementNo";
+            this.columnStatementNo.ReadOnly = true;
+            this.columnStatementNo.Width = 70;
+            // 
+            // columnStatementDate
+            // 
+            this.columnStatementDate.DataPropertyName = "Date";
+            this.columnStatementDate.Frozen = true;
+            this.columnStatementDate.HeaderText = "Дата";
+            this.columnStatementDate.MinimumWidth = 6;
+            this.columnStatementDate.Name = "columnStatementDate";
+            this.columnStatementDate.ReadOnly = true;
+            this.columnStatementDate.Width = 125;
+            // 
+            // dgw1Delete
+            // 
+            this.dgw1Delete.HeaderText = "";
+            this.dgw1Delete.MinimumWidth = 6;
+            this.dgw1Delete.Name = "dgw1Delete";
+            this.dgw1Delete.ReadOnly = true;
+            this.dgw1Delete.Text = "Изтрий";
+            this.dgw1Delete.UseColumnTextForButtonValue = true;
+            this.dgw1Delete.Width = 50;
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(314, 725);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(51, 16);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Търси:";
+            // 
+            // btnClone
+            // 
+            this.btnClone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnClone.Location = new System.Drawing.Point(148, 716);
+            this.btnClone.Name = "btnClone";
+            this.btnClone.Size = new System.Drawing.Size(139, 34);
+            this.btnClone.TabIndex = 8;
+            this.btnClone.Text = "Дублирай";
+            this.btnClone.UseVisualStyleBackColor = true;
+            this.btnClone.Click += new System.EventHandler(this.btnClone_Click);
             // 
             // btnPrint1
             // 
@@ -213,63 +278,7 @@
             this.dataGridView2.Size = new System.Drawing.Size(1198, 669);
             this.dataGridView2.TabIndex = 6;
             this.dataGridView2.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellClick);
-            // 
-            // btnAddService
-            // 
-            this.btnAddService.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAddService.Location = new System.Drawing.Point(3, 716);
-            this.btnAddService.Name = "btnAddService";
-            this.btnAddService.Size = new System.Drawing.Size(139, 34);
-            this.btnAddService.TabIndex = 5;
-            this.btnAddService.Text = "Добави";
-            this.btnAddService.UseVisualStyleBackColor = true;
-            this.btnAddService.Click += new System.EventHandler(this.btnAddService_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 12);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(174, 16);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Технически обслужвания";
-            // 
-            // txtAddress
-            // 
-            this.txtAddress.Location = new System.Drawing.Point(845, 7);
-            this.txtAddress.Name = "txtAddress";
-            this.txtAddress.Size = new System.Drawing.Size(687, 22);
-            this.txtAddress.TabIndex = 7;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(783, 13);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(47, 16);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Адрес";
-            // 
-            // btnUpdateCompany
-            // 
-            this.btnUpdateCompany.Location = new System.Drawing.Point(1546, 7);
-            this.btnUpdateCompany.Name = "btnUpdateCompany";
-            this.btnUpdateCompany.Size = new System.Drawing.Size(75, 23);
-            this.btnUpdateCompany.TabIndex = 8;
-            this.btnUpdateCompany.Text = "Запази";
-            this.btnUpdateCompany.UseVisualStyleBackColor = true;
-            this.btnUpdateCompany.Click += new System.EventHandler(this.btnUpdateCompany_Click);
-            // 
-            // btnClone
-            // 
-            this.btnClone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnClone.Location = new System.Drawing.Point(148, 716);
-            this.btnClone.Name = "btnClone";
-            this.btnClone.Size = new System.Drawing.Size(139, 34);
-            this.btnClone.TabIndex = 8;
-            this.btnClone.Text = "Дублирай";
-            this.btnClone.UseVisualStyleBackColor = true;
-            this.btnClone.Click += new System.EventHandler(this.btnClone_Click);
+            this.dataGridView2.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView2_CellFormatting);
             // 
             // grd2Id
             // 
@@ -370,45 +379,60 @@
             this.delete.UseColumnTextForButtonValue = true;
             this.delete.Width = 80;
             // 
-            // Id
+            // btnAddService
             // 
-            this.Id.DataPropertyName = "Id";
-            this.Id.Frozen = true;
-            this.Id.HeaderText = "Id";
-            this.Id.MinimumWidth = 6;
-            this.Id.Name = "Id";
-            this.Id.Visible = false;
-            this.Id.Width = 125;
+            this.btnAddService.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnAddService.Location = new System.Drawing.Point(3, 716);
+            this.btnAddService.Name = "btnAddService";
+            this.btnAddService.Size = new System.Drawing.Size(139, 34);
+            this.btnAddService.TabIndex = 5;
+            this.btnAddService.Text = "Добави";
+            this.btnAddService.UseVisualStyleBackColor = true;
+            this.btnAddService.Click += new System.EventHandler(this.btnAddService_Click);
             // 
-            // columnStatementNo
+            // label3
             // 
-            this.columnStatementNo.DataPropertyName = "No";
-            this.columnStatementNo.Frozen = true;
-            this.columnStatementNo.HeaderText = "Номер";
-            this.columnStatementNo.MinimumWidth = 6;
-            this.columnStatementNo.Name = "columnStatementNo";
-            this.columnStatementNo.ReadOnly = true;
-            this.columnStatementNo.Width = 70;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(14, 12);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(174, 16);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Технически обслужвания";
             // 
-            // columnStatementDate
+            // txtAddress
             // 
-            this.columnStatementDate.DataPropertyName = "Date";
-            this.columnStatementDate.Frozen = true;
-            this.columnStatementDate.HeaderText = "Дата";
-            this.columnStatementDate.MinimumWidth = 6;
-            this.columnStatementDate.Name = "columnStatementDate";
-            this.columnStatementDate.ReadOnly = true;
-            this.columnStatementDate.Width = 125;
+            this.txtAddress.Location = new System.Drawing.Point(845, 7);
+            this.txtAddress.Name = "txtAddress";
+            this.txtAddress.Size = new System.Drawing.Size(687, 22);
+            this.txtAddress.TabIndex = 7;
             // 
-            // dgw1Delete
+            // label4
             // 
-            this.dgw1Delete.HeaderText = "";
-            this.dgw1Delete.MinimumWidth = 6;
-            this.dgw1Delete.Name = "dgw1Delete";
-            this.dgw1Delete.ReadOnly = true;
-            this.dgw1Delete.Text = "Изтрий";
-            this.dgw1Delete.UseColumnTextForButtonValue = true;
-            this.dgw1Delete.Width = 50;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(783, 13);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(47, 16);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Адрес";
+            // 
+            // btnUpdateCompany
+            // 
+            this.btnUpdateCompany.Location = new System.Drawing.Point(1546, 7);
+            this.btnUpdateCompany.Name = "btnUpdateCompany";
+            this.btnUpdateCompany.Size = new System.Drawing.Size(75, 23);
+            this.btnUpdateCompany.TabIndex = 8;
+            this.btnUpdateCompany.Text = "Запази";
+            this.btnUpdateCompany.UseVisualStyleBackColor = true;
+            this.btnUpdateCompany.Click += new System.EventHandler(this.btnUpdateCompany_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.textBox1.Location = new System.Drawing.Point(371, 722);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(157, 22);
+            this.textBox1.TabIndex = 10;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // CompanyForm
             // 
@@ -471,5 +495,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn columnStatementNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn columnStatementDate;
         private System.Windows.Forms.DataGridViewButtonColumn dgw1Delete;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
